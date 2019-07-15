@@ -35,11 +35,7 @@ export function toAbout(store, done) {
 
 export function navFromAbout(store, delay, duration) {
   let tl = new TimelineLite({ delay });
-  tl.to(".nav-list__item--about", duration, {
-    scaleX: 1,
-    ease: Expo.easeIn
-  })
-    .to(
+  tl.to(
       ".nav-list__link--about",
       duration,
       {

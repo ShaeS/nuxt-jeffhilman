@@ -62,16 +62,22 @@ export default {
   --timing-50: 0.5s;
   --timing-25: 0.25s;
 }
-html {
+html,
+body {
   font-family: var(--font-sans);
   font-size: 16px;
   word-spacing: 1px;
+    text-rendering: optimizeLegibility;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
   background: var(--color-grey-1000);
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
 *,
@@ -80,16 +86,5 @@ html {
   box-sizing: border-box;
   margin: 0;
 }
-
-/* .page-enter-active,
-.page-leave-active {
-  transition: opacity var(--timing-100), transform var(--timing-100);
-}
-.page-enter,
-.page-leave-active {
-  opacity: 0;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-} */
 </style>
 

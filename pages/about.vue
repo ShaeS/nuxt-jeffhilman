@@ -15,10 +15,10 @@
           <div class="about-details__contact">
             <h3 class="about-details__title">Contact</h3>
             <ul class="about-details__list">
-              <li class="about-details__item">jhilman@live.ca</li>
-              <li class="about-details__item">youtube.com/jeff</li>
-              <li class="about-details__item">soundcloud.com/jeff</li>
-              <li class="about-details__item">linkedin.ca/jeff</li>
+              <li class="about-details__item"><a href="mailto:jhilman@live.ca" target="_blank" rel="noopener noreferrer"><MailIcon class="icon" /> Email</a></li>
+              <li class="about-details__item"><a href="https://www.youtube.com/user/guitardude77" target="_blank" rel="noopener noreferrer"><YoutubeIcon class="icon" /> YouTube</a></li>
+              <li class="about-details__item"><a href="https://soundcloud.com/jeffhilman" target="_blank" rel="noopener noreferrer"><SoundcloudIcon class="icon" /> SoundCloud</a></li>
+              <li class="about-details__item"><a href="https://www.linkedin.com/in/hilmanjeff/" target="_blank" rel="noopener noreferrer"><LinkedinIcon class="icon" />LinkedIn</a></li>
             </ul>
           </div>
           <div class="about-details__image"></div>
@@ -32,10 +32,18 @@
 <script>
 import TitleArea from "~/components/TitleArea.vue";
 import { toHome, fromHome, beforeFromHome } from "~/animations/about";
+import MailIcon from "~/icons/mail.vue"
+import YoutubeIcon from "~/icons/youtube.vue"
+import SoundcloudIcon from "~/icons/soundcloud.vue"
+import LinkedinIcon from "~/icons/linkedin.vue"
 
 export default {
   components: {
-    TitleArea
+    TitleArea,
+    MailIcon,
+    YoutubeIcon,
+    SoundcloudIcon,
+    LinkedinIcon
   },
   transition: {
     mode: "out-in",
@@ -59,6 +67,8 @@ export default {
 }
 
 .content {
+  position: relative;
+  z-index: 1;
   height: 85vh;
   display: flex;
   flex-direction: column;
@@ -70,6 +80,7 @@ export default {
 
 .about {
   position: relative;
+  z-index: 3;
   height: 100vh;
   flex: 4;
   background: var(--color-grey-100);
@@ -94,7 +105,7 @@ export default {
   color: var(--color-grey-900);
   opacity: 0.3;
   position: fixed;
-  z-index: -1;
+  z-index: 0;
   top: -5vw;
   left: -5vw;
   font-size: 1200px;
@@ -132,7 +143,7 @@ export default {
 
   &__title {
     font-family: var(--font-serif);
-    font-size: 40px;
+    font-size: 32px;
     margin-bottom: var(--spacing-lg);
   }
 
@@ -142,8 +153,20 @@ export default {
   }
 
   &__item {
-    color: var(--color-grey-700);
     margin-bottom: var(--spacing-md);
+
+    a {
+      display: flex;
+      align-items: center;
+      color: var(--color-grey-700);
+      text-decoration: none;
+    }
+
+    .icon {
+      fill: var(--color-grey-900);
+      width: 24px;
+      margin-right: var(--spacing-md);
+    }
   }
 }
 </style>

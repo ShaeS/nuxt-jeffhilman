@@ -38,6 +38,8 @@ export default {
 }
 
 .content {
+  position: relative;
+  z-index: 1;
   height: 85vh;
   display: flex;
   flex-direction: column;
@@ -48,6 +50,8 @@ export default {
 }
 
 .image {
+  position: relative;
+  z-index: 1;
   height: 100vh;
   flex: 1;
   background-image: url(~assets/images/tape-player.jpg);
@@ -60,7 +64,7 @@ export default {
   color: var(--color-grey-900);
   opacity: 0.3;
   position: fixed;
-  z-index: -1;
+  z-index: 0;
   top: -5vw;
   left: -5vw;
   font-size: 1200px;

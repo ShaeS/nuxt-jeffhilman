@@ -41,7 +41,7 @@ export default {
 
 <style lang="scss" scoped>
 .lower-nav {
-  z-index: 1;
+  z-index: 2;
   position: absolute;
   bottom: 0;
   left: 0;

@@ -65,12 +65,7 @@ export function toHome(store, done) {
 }
 
 export function navFromHome(store, delay, duration) {
-  TweenMax.to(".nav-list__item--demo", duration, {
-    width: "27.7778%",
-    ease: Expo.easeInOut,
-    delay
-  });
-  TweenMax.to(".nav-list__item--projects", duration, {
+  TweenMax.to([".nav-list__item--demo", ".nav-list__item--projects"], duration, {
     width: "27.7778%",
     ease: Expo.easeInOut,
     delay
@@ -96,9 +91,4 @@ export function navFromHome(store, delay, duration) {
       },
       0
     )
-    .to(".nav-list__item--about", duration, {
-      scaleX: 0,
-      ease: Expo.easeOut,
-      delay
-    });
 }
