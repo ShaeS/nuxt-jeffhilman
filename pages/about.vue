@@ -18,7 +18,7 @@
               <li class="about-details__item"><a href="mailto:jhilman@live.ca" target="_blank" rel="noopener noreferrer"><MailIcon class="icon" /> Email</a></li>
               <li class="about-details__item"><a href="https://www.youtube.com/user/guitardude77" target="_blank" rel="noopener noreferrer"><YoutubeIcon class="icon" /> YouTube</a></li>
               <li class="about-details__item"><a href="https://soundcloud.com/jeffhilman" target="_blank" rel="noopener noreferrer"><SoundcloudIcon class="icon" /> SoundCloud</a></li>
-              <li class="about-details__item"><a href="https://www.linkedin.com/in/hilmanjeff/" target="_blank" rel="noopener noreferrer"><LinkedinIcon class="icon" />LinkedIn</a></li>
+              <li class="about-details__item"><a href="https://www.linkedin.com/in/hilmanjeff/" target="_blank" rel="noopener noreferrer"><LinkedinIcon class="icon" /> LinkedIn</a></li>
             </ul>
           </div>
           <div class="about-details__image"></div>
@@ -102,6 +102,7 @@ export default {
 }
 
 .background-text {
+  pointer-events: none;
   color: var(--color-grey-900);
   opacity: 0.3;
   position: fixed;

@@ -51,7 +51,7 @@ export function navFromAbout(store, delay, duration) {
       duration,
       {
         width: "33.3334%",
-        ease: Expo.easeInOut
+        ease: Expo.easeOut
       },
       store.state.animationSpeed
     );

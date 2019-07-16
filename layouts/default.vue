@@ -1,21 +1,26 @@
 <template>
-  <div>
-    <app-navigation />
-    <nuxt />
+  <div class="page-wrap">
+	<side-navigation />
+	<main class="primary">
+	  <nuxt />
+	  <app-navigation />
+	</main>
   </div>
 </template>
 
 <script>
 import AppNavigation from "~/components/AppNavigation.vue";
+import SideNavigation from "~/components/SideNavigation.vue";
 
 export default {
-  components: {
-    AppNavigation
-  }
+	components: {
+		AppNavigation,
+		SideNavigation
+	}
 };
 </script>
 
-<style style="scss">
+<style lang="scss">
 :root {
   /* COLORS -- PRIMARY */
   --color-primary-100: hsl(39, 50%, 95%);
@@ -53,7 +58,7 @@ export default {
 
   /* FONTS */
   --font-sans: "Lato", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-serif: "Prata", Baskerville, ‘Times New Roman’, Times, serif;
 
   /* ANIMATION TIMING */
@@ -67,7 +72,7 @@ body {
   font-family: var(--font-sans);
   font-size: 16px;
   word-spacing: 1px;
-    text-rendering: optimizeLegibility;
+	text-rendering: optimizeLegibility;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -85,6 +90,15 @@ body {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+
+.page-wrap {
+  display: flex;
+}
+
+.primary {
+  position: relative;
+  flex: 1;
 }
 </style>
 

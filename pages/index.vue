@@ -61,6 +61,7 @@ export default {
 }
 
 .background-text {
+  pointer-events: none;
   color: var(--color-grey-900);
   opacity: 0.3;
   position: fixed;
