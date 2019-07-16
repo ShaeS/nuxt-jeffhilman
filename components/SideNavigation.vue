@@ -9,7 +9,7 @@
         </ul>
     </div>
     <div class="menu">
-        <nuxt-link to="/">
+        <nuxt-link class="menu__link" to="/">
             <div class="menu__icon"></div>
         </nuxt-link>
     </div>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { TweenMax, Expo } from "gsap";
+import { TimelineLite, Expo } from "gsap";
 import { mapState } from "vuex";
 import { navFromAbout } from "~/animations/home";
 import { navFromHome } from "~/animations/about";
@@ -33,22 +33,37 @@ export default {
         SoundcloudIcon,
         LinkedinIcon
     },
+    data() {
+        return {
+            tl: null
+        }
+    },
     computed: mapState(["page", "previousPage", "animationSpeed"]),
+    mounted() {
+        this.tl = new TimelineLite( { paused: true } );
+        this.navAnimation();
+        if (this.page !== "index") {
+            this.tl.play();
+        }
+    },
     watch: {
         page(newVal) {
             if (newVal === "index") {
-                TweenMax.to( this.$el, this.$store.state.animationSpeed, {
-                    width: '0',
-                    x: '-100',
-                    ease: Expo.easeInOut,
-                })
+                this.tl.reverse();
             } else {
-                TweenMax.to( this.$el, this.$store.state.animationSpeed, {
-                    width: '144px',
-                    x: 0,
-                    ease: Expo.easeInOut,
-                })
+                this.tl.play();
             }
+        }
+    },
+    methods: {
+        navAnimation() {
+            this.tl.to( this.$el, this.$store.state.animationSpeed, {
+                x: 0,
+                ease: Expo.easeInOut,
+            }).to('.menu', this.$store.state.animationSpeed, {
+                x: 0,
+                ease: Expo.easeInOut,
+            }, `-=${this.$store.state.animationSpeed / 2}`);
         }
     }
 };
@@ -57,13 +72,19 @@ export default {
 <style lang="scss" scoped>
 .side-nav {
     display: flex;
-    position: relative;
-    z-index: 1;
-    background: var(--color-grey-800);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: var(--lower-nav-size);
+    z-index: 9;
+    transform: translateX(-100%);
 }
 
 .social {
-    width: 72px;
+    position: relative;
+    z-index: 1;
+    background: var(--color-grey-800);
+    width: calc(var(--side-nav-size) / 2);
     display: flex;
     flex-direction: column;
 
@@ -88,9 +109,15 @@ export default {
 }
 
 .menu {
-    width: 72px;
+    width: calc(var(--side-nav-size) / 2);
     padding: var(--spacing-md);
     background: var(--color-grey-900);
+    transform: translateX(-100%);
+
+    &__link {
+        display: block;
+        height: 30px;
+    }
 
     &__icon {
         color: var(--color-grey-100);

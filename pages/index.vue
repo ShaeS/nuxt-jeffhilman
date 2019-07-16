@@ -40,7 +40,7 @@ export default {
 .content {
   position: relative;
   z-index: 1;
-  height: 85vh;
+  height: calc( 100vh - var(--lower-nav-size));
   display: flex;
   flex-direction: column;
   align-items: center;

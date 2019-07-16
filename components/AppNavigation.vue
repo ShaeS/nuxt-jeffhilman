@@ -57,7 +57,7 @@ export default {
     display: flex;
     transform-origin: 0 0;
     width: 33.3334%;
-    height: 15vh;
+    height: var(--lower-nav-size);
   }
 
   &__link {

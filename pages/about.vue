@@ -67,22 +67,23 @@ export default {
 }
 
 .content {
+  padding-left: var(--side-nav-size);
   position: relative;
   z-index: 1;
-  height: 85vh;
+  height: calc( 100vh - var(--lower-nav-size));
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: white;
-  flex: 5;
+  flex: 1;
 }
 
 .about {
   position: relative;
   z-index: 3;
   height: 100vh;
-  flex: 4;
+  width: 44.4444vw;
   background: var(--color-grey-100);
   color: var(--color-grey-900);
 

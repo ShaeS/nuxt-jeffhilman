@@ -1,10 +1,8 @@
 <template>
-  <div class="page-wrap">
-	<side-navigation />
-	<main class="primary">
-	  <nuxt />
+  <div>
+    <side-navigation />
+    <nuxt />
 	  <app-navigation />
-	</main>
   </div>
 </template>
 
@@ -61,11 +59,9 @@ export default {
 	"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-serif: "Prata", Baskerville, ‘Times New Roman’, Times, serif;
 
-  /* ANIMATION TIMING */
-  --timing-100: 1s;
-  --timing-75: 0.75s;
-  --timing-50: 0.5s;
-  --timing-25: 0.25s;
+  /* NAV SIZES */
+  --lower-nav-size: 14vh;
+  --side-nav-size: 144px;
 }
 html,
 body {
@@ -90,15 +86,6 @@ body {
 *:after {
   box-sizing: border-box;
   margin: 0;
-}
-
-.page-wrap {
-  display: flex;
-}
-
-.primary {
-  position: relative;
-  flex: 1;
 }
 </style>
 
