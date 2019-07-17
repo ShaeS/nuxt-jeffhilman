@@ -4,13 +4,12 @@
       <TitleArea id="title" />
     </section>
     <section class="image"></section>
-    <div class="background-text">JH</div>
   </main>
 </template>
 
 <script>
 import TitleArea from "~/components/TitleArea.vue";
-import { beforeFromAbout, fromAbout, toAbout } from "~/animations/home";
+import { beforeToAbout, fromAbout, leaveHome, fadeOutTitle, fadeInTitle } from "~/animations/home";
 
 export default {
   components: {
@@ -21,12 +20,20 @@ export default {
     css: false,
     enter(el, done) {
       fromAbout(this.$store, done);
+      if ( this.$store.state.previousPage !== 'about' ) {
+        fadeInTitle(this.$store, done);
+      }
     },
     beforeLeave(el, done) {
-      beforeFromAbout(this.$store);
+      if ( this.$store.state.page === 'about' ) {
+        beforeToAbout(this.$store);
+      }
     },
     leave(el, done) {
-      toAbout(this.$store, done);
+      leaveHome(this.$store, done);
+      if ( this.$store.state.page !== 'about' ) {
+        fadeOutTitle(this.$store, done);
+      }
     }
   }
 };
@@ -58,19 +65,6 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: left bottom;
-}
-
-.background-text {
-  pointer-events: none;
-  color: var(--color-grey-900);
-  opacity: 0.3;
-  position: fixed;
-  z-index: 0;
-  top: -5vw;
-  left: -5vw;
-  font-size: 1200px;
-  font-weight: 900;
-  line-height: 0.8;
 }
 </style>
 

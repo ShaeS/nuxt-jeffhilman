@@ -1,6 +1,6 @@
-import { TimelineLite, TweenMax, Expo } from "gsap";
+import { TimelineLite, TweenLite, Expo } from "gsap";
 
-export function beforeFromAbout(store) {
+export function beforeToAbout(store) {
   const title = document.getElementById("title");
   if (title) {
     store.commit("updatePreviousTitlePos", title.getBoundingClientRect().x);
@@ -14,20 +14,38 @@ export function fromAbout(store, done) {
   tl.from(".image", store.state.animationSpeed, {
     xPercent: 100,
     ease: Expo.easeOut
-  }).from(
+  }, 0).from(
     "#title",
-    store.state.animationSpeed * 1.5,
+    store.state.animationSpeed,
     {
       x: distance,
       ease: Expo.easeInOut
     },
-    `-=${store.state.animationSpeed / 1.3333}`
+    0
   );
 }
 
-export function toAbout(store, done) {
-  TweenMax.to(".image", store.state.animationSpeed, {
+export function leaveHome(store, done) {
+  TweenLite.to(".image", store.state.animationSpeed, {
     xPercent: 100,
+    ease: Expo.easeIn,
+    onComplete: done
+  });
+}
+
+export function fadeInTitle(store, done) {
+  TweenLite.from("#title", store.state.animationSpeed, {
+    opacity: 0,
+    x: 20,
+    ease: Expo.easeOut,
+    onComplete: done
+  });
+}
+
+export function fadeOutTitle(store, done) {
+  TweenLite.to("#title", store.state.animationSpeed, {
+    opacity: 0,
+    x: 20,
     ease: Expo.easeIn,
     onComplete: done
   });

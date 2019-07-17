@@ -3,6 +3,7 @@
     <side-navigation />
     <nuxt />
 	  <app-navigation />
+    <div class="background-text">JH</div>
   </div>
 </template>
 
@@ -86,6 +87,19 @@ body {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+
+.background-text {
+  pointer-events: none;
+  color: var(--color-grey-900);
+  opacity: 0.3;
+  position: fixed;
+  z-index: 0;
+  top: -5vw;
+  left: -5vw;
+  font-size: 1200px;
+  font-weight: 900;
+  line-height: 0.8;
 }
 </style>
 

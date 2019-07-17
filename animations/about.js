@@ -1,4 +1,4 @@
-import { TweenMax, TimelineLite, Expo } from "gsap";
+import { TweenLite, TimelineLite, Expo } from "gsap";
 
 export function beforeFromHome(store) {
   const title = document.getElementById("title");
@@ -10,7 +10,7 @@ export function beforeFromHome(store) {
 export function fromHome(store, done) {
   const title = document.getElementById("title");
   let distance = store.state.previousTitlePos - title.getBoundingClientRect().x;
-  TweenMax.from("#title", store.state.animationSpeed, {
+  TweenLite.from("#title", store.state.animationSpeed, {
     x: distance,
     ease: Expo.easeInOut,
     onComplete: done
@@ -65,7 +65,7 @@ export function toHome(store, done) {
 }
 
 export function navFromHome(store, delay, duration) {
-  TweenMax.to([".nav-list__item--demo", ".nav-list__item--projects"], duration, {
+  TweenLite.to([".nav-list__item--demo", ".nav-list__item--projects"], duration, {
     width: "27.7778%",
     ease: Expo.easeInOut,
     delay
