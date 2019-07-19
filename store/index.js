@@ -5,7 +5,7 @@ const createStore = () => {
     state: {
       page: "index",
       previousPage: null,
-      animationSpeed: 0.8,
+      animationSpeed: 1,
       previousTitlePos: 0
     },
     mutations: {

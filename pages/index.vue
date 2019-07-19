@@ -9,7 +9,14 @@
 
 <script>
 import TitleArea from "~/components/TitleArea.vue";
-import { beforeToAbout, fromAbout, leaveHome, fadeOutTitle, fadeInTitle } from "~/animations/home";
+import {
+  beforeToAbout,
+  fromAbout,
+  enterHome,
+  leaveHome,
+  fadeOutTitle,
+  fadeInTitle
+} from "~/animations/home";
 
 export default {
   components: {
@@ -19,19 +26,21 @@ export default {
     mode: "out-in",
     css: false,
     enter(el, done) {
-      fromAbout(this.$store, done);
-      if ( this.$store.state.previousPage !== 'about' ) {
+      enterHome(this.$store, done);
+      if (this.$store.state.previousPage !== "about") {
         fadeInTitle(this.$store, done);
+      } else {
+        fromAbout(this.$store, done);
       }
     },
     beforeLeave(el, done) {
-      if ( this.$store.state.page === 'about' ) {
+      if (this.$store.state.page === "about") {
         beforeToAbout(this.$store);
       }
     },
     leave(el, done) {
       leaveHome(this.$store, done);
-      if ( this.$store.state.page !== 'about' ) {
+      if (this.$store.state.page !== "about") {
         fadeOutTitle(this.$store, done);
       }
     }
@@ -47,7 +56,7 @@ export default {
 .content {
   position: relative;
   z-index: 1;
-  height: calc( 100vh - var(--lower-nav-size));
+  height: calc(100vh - (var(--lower-nav-size) / 2));
   display: flex;
   flex-direction: column;
   align-items: center;

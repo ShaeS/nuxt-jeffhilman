@@ -2,7 +2,7 @@
   <div>
     <side-navigation />
     <nuxt />
-	  <app-navigation />
+    <app-navigation />
     <div class="background-text">JH</div>
   </div>
 </template>
@@ -12,10 +12,10 @@ import AppNavigation from "~/components/AppNavigation.vue";
 import SideNavigation from "~/components/SideNavigation.vue";
 
 export default {
-	components: {
-		AppNavigation,
-		SideNavigation
-	}
+  components: {
+    AppNavigation,
+    SideNavigation
+  }
 };
 </script>
 
@@ -54,10 +54,11 @@ export default {
   --spacing-xl: 32px;
   --spacing-xxl: 48px;
   --spacing-xxxl: 64px;
+  --spacing-xxxxl: 96px;
 
   /* FONTS */
   --font-sans: "Lato", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-	"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-serif: "Prata", Baskerville, ‘Times New Roman’, Times, serif;
 
   /* NAV SIZES */
@@ -69,7 +70,7 @@ body {
   font-family: var(--font-sans);
   font-size: 16px;
   word-spacing: 1px;
-	text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -97,7 +98,7 @@ body {
   z-index: 0;
   top: -5vw;
   left: -5vw;
-  font-size: 1200px;
+  font-size: 125vh;
   font-weight: 900;
   line-height: 0.8;
 }

@@ -1,6 +1,6 @@
 <template>
   <nav class="lower-nav">
-    <transition-group class="nav-list" name="list" tag="ul">
+    <ul class="nav-list">
       <li key="demo" class="nav-list__item nav-list__item--demo">
         <nuxt-link class="nav-list__link nav-list__link--demo" to="/demo">Demo Reel</nuxt-link>
       </li>
@@ -10,30 +10,54 @@
       <li key="about" class="nav-list__item nav-list__item--about">
         <nuxt-link class="nav-list__link nav-list__link--about" to="/about">About</nuxt-link>
       </li>
-    </transition-group>
+    </ul>
   </nav>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import { navFromAbout } from "~/animations/home";
-import { navFromHome } from "~/animations/about";
 
 export default {
   computed: mapState(["page", "previousPage", "animationSpeed"]),
   mounted() {
-    if (this.page === "about") {
-      navFromHome(this.$store, 0, 0);
+    if (this.page !== "index") {
+      this.navHideAnimation();
     }
   },
   watch: {
     page(newVal) {
-      if (newVal === "about") {
-        navFromHome(this.$store, 0, this.animationSpeed);
-      }
       if (newVal === "index") {
-        navFromAbout(this.$store, this.animationSpeed, this.animationSpeed);
+        this.navShowAnimation();
+      } else {
+        this.navHideAnimation();
       }
+    }
+  },
+  methods: {
+    navHideAnimation() {
+      let tl = new TimelineLite();
+      tl.staggerTo(
+        ".nav-list__item",
+        this.$store.state.animationSpeed,
+        {
+          yPercent: 100,
+          ease: Expo.easeInOut
+        },
+        this.$store.state.animationSpeed / 4
+      );
+    },
+    navShowAnimation() {
+      let tl = new TimelineLite();
+      tl.staggerTo(
+        ".nav-list__item",
+        this.$store.state.animationSpeed / 1.3333,
+        {
+          yPercent: 0,
+          ease: Expo.easeInOut,
+          delay: this.$store.state.animationSpeed
+        },
+        this.$store.state.animationSpeed / 4
+      );
     }
   }
 };
