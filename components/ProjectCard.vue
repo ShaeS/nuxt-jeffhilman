@@ -3,7 +3,9 @@
     <h3
       ref="title"
       class="project-card__title"
-      :style="`transform: translateY(${translated * -1}px)`"
+      :style="{
+        transform: `translate3d(0, ${offset * -1}px, 0)`,
+      }"
     >{{ title }}</h3>
     <img class="project-card__image" :src="image" />
   </article>
@@ -14,23 +16,16 @@ export default {
   props: {
     title: String,
     image: String,
-    offsetTop: Number
+    scroll: Number
+  },
+  watch: {
+    scroll(newValue, oldValue) {
+      this.offset = ( window.innerHeight / 2 - this.$refs.title.getBoundingClientRect().top ) / 20;
+    }
   },
   data() {
     return {
-      yValue: "0"
-    };
-  },
-  watch: {
-    offsetTop(newValue, oldValue) {
-      this.yValue =
-        Math.floor(window.innerHeight / 2) -
-        this.$refs.title.getBoundingClientRect().top;
-    }
-  },
-  computed: {
-    translated() {
-      return this.yValue / 10;
+      offset: 0
     }
   }
 };

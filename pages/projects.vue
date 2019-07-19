@@ -7,44 +7,38 @@
       >Here you will find my most important projects. As well as a list of other projects I have worked on.</p>
       <div class="background-text">Projects</div>
     </section>
-    <section class="content">
-      <vuescroll @handle-scroll="scrollHandler" :ops="scroller">
+    <section ref="scroller" class="content">
         <div class="scroll-wrap">
-          <ProjectCard title="Parabola" image="/parabola.jpg" :offsetTop="offsetTop"></ProjectCard>
-          <ProjectCard title="Akashi" image="/akashi.jpg" :offsetTop="offsetTop"></ProjectCard>
-          <ProjectCard title="Smash Forward" image="/smash-forward.jpg" :offsetTop="offsetTop"></ProjectCard>
+          <ProjectCard title="Parabola" image="/parabola.jpg" :scroll="scroll"></ProjectCard>
+          <ProjectCard title="Akashi" image="/akashi.jpg" :scroll="scroll"></ProjectCard>
+          <ProjectCard title="Smash Forward" image="/smash-forward.jpg" :scroll="scroll"></ProjectCard>
         </div>
-      </vuescroll>
     </section>
   </main>
 </template>
 
 <script>
-import vuescroll from "vuescroll/dist/vuescroll-native";
 import ProjectCard from "~/components/ProjectCard.vue";
 
 export default {
   components: {
-    vuescroll,
     ProjectCard
   },
   data() {
     return {
-      offsetTop: 0,
-      scroller: {
-        vuescroll: {
-          detectResize: false
-        },
-        bar: {
-          background: "hsl(39, 50%, 45%)"
-        }
-      }
-    };
+      scroll: 0
+    }
+  },
+  mounted() {
+    this.$refs.scroller.addEventListener( 'scroll', this.scrollHandler );
   },
   methods: {
-    scrollHandler(vertical) {
-      this.offsetTop = vertical.scrollTop;
+    scrollHandler( e ) {
+      this.scroll = e.target.scrollTop;
     }
+  },
+  destroyed() {
+    this.$refs.scroller.removeEventListener( 'scroll', this.scrollHandler );
   }
 };
 </script>
@@ -56,10 +50,31 @@ export default {
 }
 
 .content {
+  overflow-y: auto;
   height: 100vh;
   position: relative;
   z-index: 1;
   flex: 1;
+
+  &::-webkit-scrollbar {
+      background-color: var(--color-grey-1000);
+      width: 24px;
+  }
+
+  /* background of the scrollbar except button or resizer */
+  &::-webkit-scrollbar-track {
+      background-color: var(--color-grey-1000);
+  }
+
+  /* scrollbar itself */
+  &::-webkit-scrollbar-thumb {
+      background-color: var(--color-primary-700);
+      border-radius: 16px;
+      border: 8px solid var(--color-grey-1000);
+  }
+
+  /* set button(top and bottom of the scrollbar) */
+  &::-webkit-scrollbar-button {display:none}
 }
 
 .scroll-wrap {

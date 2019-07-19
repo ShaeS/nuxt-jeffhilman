@@ -1,4 +1,4 @@
-import { TimelineLite, TweenLite, Expo } from "gsap";
+import { TweenLite, Expo } from "gsap";
 
 export function beforeToAbout(store) {
   const title = document.getElementById("title");
@@ -44,8 +44,6 @@ export function leaveHome(store, done) {
 }
 
 export function fadeInTitle(store, done) {
-  console.log("fade in title");
-
   TweenLite.from("#title", store.state.animationSpeed, {
     opacity: 0,
     x: 20,
@@ -55,7 +53,6 @@ export function fadeInTitle(store, done) {
 }
 
 export function fadeOutTitle(store, done) {
-  console.log("fade out title");
   TweenLite.to("#title", store.state.animationSpeed, {
     opacity: 0,
     x: 20,
