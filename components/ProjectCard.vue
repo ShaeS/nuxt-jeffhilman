@@ -1,32 +1,14 @@
 <template>
   <article class="project-card">
-    <h3
-      ref="title"
-      class="project-card__title"
-      :style="{
-        transform: `translate3d(0, ${offset * -1}px, 0)`,
-      }"
-    >{{ title }}</h3>
-    <img class="project-card__image" :src="image" />
+    <h3 class="project-card__title">{{ project.title }}</h3>
+    <img class="project-card__image" :src="project.image" />
   </article>
 </template>
 
 <script>
 export default {
   props: {
-    title: String,
-    image: String,
-    scroll: Number
-  },
-  watch: {
-    scroll(newValue, oldValue) {
-      this.offset = ( window.innerHeight / 2 - this.$refs.title.getBoundingClientRect().top ) / 20;
-    }
-  },
-  data() {
-    return {
-      offset: 0
-    }
+    project: Object
   }
 };
 </script>

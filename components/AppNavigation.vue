@@ -41,6 +41,7 @@ export default {
         this.$store.state.animationSpeed,
         {
           yPercent: 100,
+          pointerEvents: 'none',
           ease: Expo.easeInOut
         },
         this.$store.state.animationSpeed / 4
@@ -53,6 +54,7 @@ export default {
         this.$store.state.animationSpeed / 1.3333,
         {
           yPercent: 0,
+          pointerEvents: 'auto',
           ease: Expo.easeInOut,
           delay: this.$store.state.animationSpeed
         },
@@ -70,6 +72,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+  pointer-events: none;
 }
 
 .nav-list {
@@ -78,6 +81,7 @@ export default {
   display: flex;
 
   &__item {
+    pointer-events: auto;
     display: flex;
     transform-origin: 0 0;
     width: 33.3334%;
