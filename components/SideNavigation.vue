@@ -44,11 +44,11 @@
         </li>
       </ul>
     </div>
-    <div class="menu">
-      <nuxt-link class="menu__link" to="/">
+    <nuxt-link class="menu" to="/">
+      <div class="menu__link">
         <div class="menu__icon"></div>
-      </nuxt-link>
-    </div>
+      </div>
+    </nuxt-link>
   </div>
 </template>
 
@@ -152,10 +152,37 @@ export default {
 }
 
 .menu {
+  position: relative;
   width: calc(var(--side-nav-size) / 2);
   padding: var(--spacing-md);
-  background: var(--color-grey-900);
   transform: translateX(-100%);
+
+  &:hover::after {
+    transform: translateX(4px);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background: var(--color-grey-900);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    background: var(--color-grey-900);
+    transition: transform 0.3s;
+  }
 
   &__link {
     display: block;
@@ -165,32 +192,50 @@ export default {
   &__icon {
     color: var(--color-grey-100);
     position: relative;
+    z-index: 2;
     display: inline-block;
     width: 100%;
     height: 3px;
     background: currentColor;
     border-radius: 1px;
+    transform-origin: right center;
+    transition: transform 0.3s;
 
-    &::before {
-      content: "";
-      background: currentColor;
-      width: 72%;
-      height: inherit;
-      position: absolute;
-      top: -8px;
-      left: 0;
-      border-radius: 1px;
-    }
-
+    &::before,
     &::after {
       content: "";
       background: currentColor;
-      width: 84%;
       height: inherit;
       position: absolute;
-      top: 8px;
       left: 0;
       border-radius: 1px;
+      transform-origin: right center;
+      transition: transform 0.3s;
+    }
+
+    &::before {
+      width: 72%;
+      top: -8px;
+    }
+
+    &::after {
+      width: 84%;
+      top: 8px;
+    }
+  }
+
+  &:hover & {
+
+    &__icon {
+      transform: scaleX(0.6);
+
+      &:before {
+        transform: scaleX(1.6);
+      }
+
+      &:after {
+        transform: scaleX(1.3);
+      }
     }
   }
 }

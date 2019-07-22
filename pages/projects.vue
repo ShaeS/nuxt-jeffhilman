@@ -1,23 +1,25 @@
 <template>
   <main class="main">
-    <section @click="activeProject = null" class="projects-sidebar" :class="{ hidden: activeProject }">
+    <section @click="closeProject" class="projects-sidebar" :class="{ hidden: activeProject }">
       <h2 class="projects-sidebar__title">Projects</h2>
       <p
         class="projects-sidebar__content"
       >Here you will find my most important projects. As well as a list of other projects I have worked on.</p>
       <div class="background-text">Projects</div>
+      <div class="projects-sidebar__overlay"></div>
     </section>
     <section ref="scroller" class="content">
         <div class="scroll-wrap">
-          <ProjectCard v-for="project in projects" :key="project.title" @click.native="activeProject = project" :project="project" />
+          <ProjectCard v-for="project in projects" :key="project.title" @click.native="viewProject(project)" :project="project" />
         </div>
     </section>
 
-    <ProjectDetails v-if="activeProject" :project="activeProject" />
+    <ProjectDetails :project="activeProject" />
   </main>
 </template>
 
 <script>
+import { TimelineLite } from 'gsap';
 import { toHome, fromHome } from "~/animations/projects";
 import ProjectCard from "~/components/ProjectCard.vue";
 import ProjectDetails from "~/components/ProjectDetails.vue";
@@ -43,7 +45,28 @@ export default {
           image: "/smash-forward.jpg"
         },
       ],
-      activeProject: null
+      activeProject: null,
+      tl: null
+    }
+  },
+  mounted () {
+    this.tl = new TimelineLite({ paused: true });
+    this.tl.to( ['.projects-sidebar__title', '.projects-sidebar__content'], this.$store.state.animationSpeed * 1.5, {
+      opacity: 0,
+      ease: Expo.easeInOut
+    }, 0).to('.projects-sidebar__overlay', this.$store.state.animationSpeed * 1.5, {
+      opacity: 0.6,
+      ease: Expo.easeInOut
+    }, 0)
+  },
+  methods: {
+    viewProject(project) {
+      this.activeProject = project;
+      this.tl.play();
+    },
+    closeProject() {
+      this.activeProject = null;
+      this.tl.reverse();
     }
   },
   transition: {
@@ -113,7 +136,7 @@ export default {
   background: var(--color-primary-700);
   color: var(--color-grey-100);
 
-  &::before {
+  &__overlay {
     content: "";
     background: var(--color-grey-1000);
     opacity: 0;
@@ -122,19 +145,6 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    transition: opacity 1s;
-  }
-
-  &.hidden::before {
-    opacity: 0.6;
-  }
-
-  &.hidden & {
-    &__title,
-    &__content {
-      opacity: 0;
-    }
-
   }
 
   &__title {
@@ -143,14 +153,12 @@ export default {
     margin-bottom: var(--spacing-xl);
     position: relative;
     z-index: 1;
-    transition: opacity 1s;
   }
 
   &__content {
     position: relative;
     z-index: 1;
     line-height: 1.6;
-    transition: opacity 1s;
   }
 
   .background-text {

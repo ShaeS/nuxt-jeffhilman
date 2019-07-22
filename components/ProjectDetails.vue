@@ -1,7 +1,7 @@
 <template>
-  <section class="project-details">
-    <h3 class="project-details__title">{{ project.title }}</h3>
-    <img class="project-details__image" :src="project.image" />
+  <section v-if="currentProject" class="project-details">
+    <h3 class="project-details__title">{{ currentProject.title }}</h3>
+    <img class="project-details__image" :src="currentProject.image" />
   </section>
 </template>
 
@@ -11,11 +11,39 @@ export default {
   props: {
     project: Object
   },
-  mounted () {
-    TweenLite.from( this.$el, this.$store.state.animationSpeed * 2, {
+  data() {
+    return {
+      currentProject: null
+    }
+  },
+  watch: {
+    project(newVal) {
+      if ( newVal ) {
+        this.enterTransition();
+      } else {
+        this.leaveTransition();
+      }
+    }
+  },
+  methods: {
+    enterTransition() {
+      this.currentProject = this.project;
+      this.$nextTick( () => {
+        TweenLite.from( this.$el, this.$store.state.animationSpeed * 1.5, {
+          xPercent: 100,
+          ease: Expo.easeInOut
+        });
+      });
+    },
+    leaveTransition() {
+      TweenLite.to( this.$el, this.$store.state.animationSpeed * 1.5, {
         xPercent: 100,
-        ease: Expo.easeInOut
-    });
+        ease: Expo.easeInOut,
+        onComplete: () => {
+          this.currentProject = null
+        }
+      });
+    }
   },
 };
 </script>
