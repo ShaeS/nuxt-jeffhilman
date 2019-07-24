@@ -14,7 +14,7 @@
         </div>
     </section>
 
-    <ProjectDetails :project="activeProject" />
+    <ProjectDetails :project="activeProject" @close="closeProject" />
   </main>
 </template>
 
