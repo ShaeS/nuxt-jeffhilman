@@ -1,7 +1,19 @@
 <template>
   <section v-if="currentProject" class="project-details">
     <div class="project-details__left">
-      <img class="project-details__image" :src="currentProject.image" />
+      <div class="project-details__image-wrap">
+        <img class="project-details__image" :src="currentProject.image" />
+      </div>
+      <div class="project-navigation">
+        <div @click="$emit( 'prev' )" class="project-navigation__link">
+          <img class="project-navigation__image" :src="previousProject.image" alt="" />
+          <h4 class="project-navigation__title">{{ previousProject.title }}</h4>
+        </div>
+        <div @click="$emit( 'next' )" class="project-navigation__link project-navigation__link--reverse">
+          <img class="project-navigation__image" :src="nextProject.image" alt="" />
+          <h4 class="project-navigation__title">{{ nextProject.title }}</h4>
+        </div>
+      </div>
     </div>
     <div class="project-details__right">
       <h3 class="project-details__title">{{ currentProject.title }}</h3>
@@ -11,7 +23,7 @@
         <br />Proficient in game audio implementation and of course sound design, Jeff previously shipped "Puzzle Fighter" with Capcom Game Studio Vancouver at the end of 2017 and also provided his skills to an unannounced project.
       </p>
     </div>
-    <button @click="$emit( 'close' )" class="project-details__close"><span class="project-details__close-icon"></span></button>
+    <button @click="$emit( 'close' )" class="project-details__close" :class="{ leaving }"><span class="project-details__close-icon"></span></button>
   </section>
 </template>
 
@@ -19,19 +31,24 @@
 import { TimelineLite } from 'gsap';
 export default {
   props: {
-    project: Object
+    project: Object,
+    previousProject: Object,
+    nextProject: Object
   },
   data() {
     return {
-      currentProject: null
+      currentProject: null,
+      leaving: false
     }
   },
   watch: {
-    project(newVal) {
-      if ( newVal ) {
+    project(newVal, oldVal) {
+      if ( oldVal === undefined ) {
         this.enterTransition();
-      } else {
+      } else if ( newVal === undefined ) {
         this.leaveTransition();
+      } else {
+        this.leaveOldProject();
       }
     }
   },
@@ -51,6 +68,7 @@ export default {
       });
     },
     leaveTransition() {
+      this.leaving = true;
       let tl = new TimelineLite({onComplete: () => {
         this.currentProject = null
       }});
@@ -63,94 +81,199 @@ export default {
         xPercent: 110,
         ease: Expo.easeInOut
       }, 0);
-    }
+    },
+    enterNewProject() {
+      this.currentProject = this.project;
+      let tl = new TimelineLite();
+      this.$nextTick( () => {
+        tl.to( '.project-details__right', this.$store.state.animationSpeed / 2, {
+          opacity: 1,
+          ease: Expo.easeInOut
+        })
+        .to( '.project-details__image', this.$store.state.animationSpeed / 2, {
+          opacity: 1,
+          ease: Expo.easeInOut
+        }, `-=${ this.$store.state.animationSpeed / 2 }`)
+        .to( '.project-navigation', this.$store.state.animationSpeed / 2, {
+          opacity: 1,
+          ease: Expo.easeInOut
+        }, `-=${ this.$store.state.animationSpeed / 2 }`);;
+      });
+    },
+    leaveOldProject() {
+      let tl = new TimelineLite({onComplete: () => this.enterNewProject()});
+      tl.to( '.project-details__right', this.$store.state.animationSpeed, {
+        opacity: 0,
+        ease: Expo.easeInOut
+      }).to( '.project-details__image', this.$store.state.animationSpeed / 2, {
+        opacity: 0,
+        ease: Expo.easeInOut
+      }, `-=${ this.$store.state.animationSpeed / 2 }`)
+      .to( '.project-navigation', this.$store.state.animationSpeed / 2, {
+        opacity: 0,
+        ease: Expo.easeInOut
+      }, `-=${ this.$store.state.animationSpeed / 2 }`);
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .project-details {
-    position: fixed;
-    z-index: 9;
-    top: 0;
-    bottom: 0;
-    right: 0;
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  width: 75vw;
+  background: var(--color-grey-100);
+  color: var(--color-grey-900);
+
+  &__left {
     display: flex;
-    width: 75vw;
-    background: var(--color-grey-100);
-    color: var(--color-grey-900);
+    flex-direction: column;
+    background: var(--color-grey-1000);
+    width: 500px;
+  }
 
-    &__left {
-      width: 100%;
-      max-width: 400px
+  &__right {
+    flex: 1;
+    padding: var(--spacing-xxxl) var(--spacing-xxl);
+  }
+
+  &__image-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  &__image {
+    max-width: 100%;
+  }
+
+  &__title {
+    font-family: var(--font-serif);
+    font-size: 48px;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  &__content {
+    line-height: 1.6;
+  }
+
+  &__close {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    width: 80px;
+    height: 80px;
+    border: 2px solid white;
+    color: white;
+    position: absolute;
+    z-index: -1;
+    right: 100%;
+    top: 0;
+
+    &:hover,
+    &.leaving {
+      .project-details__close-icon::before,
+      .project-details__close-icon::after {
+        transform: rotate(0);
+      }
     }
+  }
 
-    &__right {
-      flex: 1;
-      padding: var(--spacing-xxxl) var(--spacing-xxl);
-    }
+  &__close-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    position: relative;
 
-    &__image {
-      max-width: 100%;
-    }
-
-    &__title {
-      font-family: var(--font-serif);
-      font-size: 48px;
-      margin-bottom: var(--spacing-xl);
-    }
-
-    &__content {
-      line-height: 1.6;
-    }
-
-    &__close {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: none;
-      width: 80px;
-      height: 80px;
-      border: 2px solid white;
-      color: white;
+    &::before,
+    &::after {
+      content: "";
       position: absolute;
-      z-index: -1;
-      right: 100%;
-      top: 0;
+      background: white;
+      width: inherit;
+      height: 2px;
+      transition: transform 0.1s;
+    }
 
-      &:hover {
-        .project-details__close-icon::before,
-        .project-details__close-icon::after {
-          transform: rotate(0);
+    &::before {
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+
+.project-navigation {
+  height: 200px;
+  display: flex;
+
+  &__link {
+    cursor: pointer;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-lg);
+    color: var(--color-grey-200);
+
+    &:hover {
+      .project-navigation {
+
+        &__image {
+          opacity: 1;
+          filter: saturate(1);
+          transform: scale(1.05);
+        }
+
+        &__title {
+          transform: translateX(30px);
         }
       }
     }
 
-    &__close-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      position: relative;
+    &--reverse {
+      flex-direction: row-reverse;
 
-      &::before,
-      &::after {
-        content: "";
-        position: absolute;
-        background: white;
-        width: inherit;
-        height: 2px;
-        transition: transform 0.1s;
+      .project-navigation__title {
+        margin-right: -20px;
       }
 
-      &::before {
-        transform: rotate(45deg);
-      }
+      &:hover {
+        .project-navigation {
 
-      &::after {
-        transform: rotate(-45deg);
+          &__title {
+            transform: translateX(-30px);
+          }
+        }
       }
     }
+  }
+
+  &__image {
+    object-fit: cover;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    opacity: 0.55;
+    filter: saturate(0);
+    transition: opacity 0.3s, filter 0.3s, transform 0.3s;
+  }
+
+  &__title {
+    position: relative;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    margin-left: -20px;
+    transition: transform 0.3s;
+  }
 }
 </style>

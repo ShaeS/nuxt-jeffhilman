@@ -10,11 +10,18 @@
     </section>
     <section ref="scroller" class="content">
         <div class="scroll-wrap">
-          <ProjectCard v-for="project in projects" :key="project.title" @click.native="viewProject(project)" :project="project" />
+          <ProjectCard v-for="(project, index) in projects" :key="project.title" @click.native="viewProject(index)" :project="project" />
         </div>
     </section>
 
-    <ProjectDetails :project="activeProject" @close="closeProject" />
+    <ProjectDetails 
+      :project="activeProject" 
+      :nextProject="nextProject" 
+      :previousProject="previousProject" 
+      @close="closeProject" 
+      @prev="viewProject(( projectIndex + projects.length - 1 ) % projects.length)" 
+      @next="viewProject(( projectIndex + 1 ) % projects.length)"
+    />
   </main>
 </template>
 
@@ -45,7 +52,7 @@ export default {
           image: "/smash-forward.jpg"
         },
       ],
-      activeProject: null,
+      projectIndex: null,
       tl: null
     }
   },
@@ -55,17 +62,28 @@ export default {
       opacity: 0,
       ease: Expo.easeInOut
     }, 0).to('.projects-sidebar__overlay', this.$store.state.animationSpeed * 1.5, {
-      opacity: 0.6,
+      opacity: 0.7,
       ease: Expo.easeInOut
     }, 0)
   },
+  computed: {
+    activeProject() {
+      return this.projects[this.projectIndex];
+    },
+    previousProject() {
+      return this.projects[( this.projectIndex + this.projects.length - 1 ) % this.projects.length];
+    },
+    nextProject() {
+      return this.projects[( this.projectIndex + 1 ) % this.projects.length];
+    }
+  },
   methods: {
-    viewProject(project) {
-      this.activeProject = project;
+    viewProject(index) {
+      this.projectIndex = index;
       this.tl.play();
     },
     closeProject() {
-      this.activeProject = null;
+      this.projectIndex = null;
       this.tl.reverse();
     }
   },
