@@ -5,7 +5,7 @@
       <p
         class="projects-sidebar__content"
       >Here you will find my most important projects. As well as a list of other projects I have worked on.</p>
-      <div class="background-text">Projects</div>
+      <div class="background-text--sub">Projects</div>
       <div class="projects-sidebar__overlay"></div>
     </section>
     <section ref="scroller" class="content">
@@ -169,7 +169,7 @@ export default {
     line-height: 1.6;
   }
 
-  .background-text {
+  .background-text--sub {
     writing-mode: vertical-lr;
     font-size: 40vh;
     position: absolute;

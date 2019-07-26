@@ -4,7 +4,7 @@
       <TitleArea id="title" />
     </section>
     <section class="about">
-      <div class="background-text">About</div>
+      <div class="background-text--sub">About</div>
       <div class="about__wrap">
         <h3 class="about__title">About</h3>
         <p class="about__content">
@@ -116,7 +116,7 @@ export default {
   background: var(--color-grey-100);
   color: var(--color-grey-900);
 
-  .background-text {
+  .background-text--sub {
     writing-mode: vertical-lr;
     font-size: 40vh;
     position: absolute;
