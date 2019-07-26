@@ -28,7 +28,8 @@ export function fromHome(store, done) {
         yPercent: 100,
         ease: Expo.easeOut
       },
-      store.state.animationSpeed / 4
+      store.state.animationSpeed / 4,
+      `-=${store.state.animationSpeed / 2}`
     )
     .from(
       ".about-details__title",

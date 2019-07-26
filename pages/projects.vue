@@ -1,6 +1,6 @@
 <template>
   <main class="main">
-    <section @click="closeProject" class="projects-sidebar" :class="{ hidden: activeProject }">
+    <section @click="closeProject" class="projects-sidebar">
       <h2 class="projects-sidebar__title">Projects</h2>
       <p
         class="projects-sidebar__content"
@@ -15,9 +15,8 @@
     </section>
 
     <ProjectDetails 
-      :project="activeProject" 
-      :nextProject="nextProject" 
-      :previousProject="previousProject" 
+      :projects="projects" 
+      :projectIndex="projectIndex" 
       @close="closeProject" 
       @prev="viewProject(( projectIndex + projects.length - 1 ) % projects.length)" 
       @next="viewProject(( projectIndex + 1 ) % projects.length)"
@@ -66,17 +65,6 @@ export default {
       ease: Expo.easeInOut
     }, 0)
   },
-  computed: {
-    activeProject() {
-      return this.projects[this.projectIndex];
-    },
-    previousProject() {
-      return this.projects[( this.projectIndex + this.projects.length - 1 ) % this.projects.length];
-    },
-    nextProject() {
-      return this.projects[( this.projectIndex + 1 ) % this.projects.length];
-    }
-  },
   methods: {
     viewProject(index) {
       this.projectIndex = index;
@@ -90,6 +78,7 @@ export default {
   transition: {
     mode: "out-in",
     css: false,
+    appear: true,
     enter(el, done) {
       fromHome(this.$store, done);
     },
@@ -153,6 +142,7 @@ export default {
   padding-left: calc( var(--spacing-xl) + var(--side-nav-size) );
   background: var(--color-primary-700);
   color: var(--color-grey-100);
+  transform: translateX(-150%);
 
   &__overlay {
     content: "";

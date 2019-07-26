@@ -2,12 +2,12 @@ import { TweenLite, TimelineLite, Expo } from "gsap";
 
 export function fromHome(store, done) {
   let tl = new TimelineLite({ onComplete: done });
-  tl.from(".projects-sidebar", store.state.animationSpeed, {
-    xPercent: -150,
+  tl.to(".projects-sidebar", store.state.animationSpeed, {
+    xPercent: 150,
     ease: Expo.easeOut
   })
-  .staggerFrom(".project-card", store.state.animationSpeed, {
-    opacity: 0,
+  .staggerTo(".project-card", store.state.animationSpeed, {
+    opacity: 1,
     ease: Expo.easeInOut
   }, store.state.animationSpeed / 6)
 }

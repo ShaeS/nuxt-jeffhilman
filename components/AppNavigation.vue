@@ -20,8 +20,8 @@ import { mapState } from "vuex";
 export default {
   computed: mapState(["page", "previousPage", "animationSpeed"]),
   mounted() {
-    if (this.page !== "index") {
-      this.navHideAnimation();
+    if (this.page === "index") {
+      this.navShowAnimation();
     }
   },
   watch: {
@@ -40,7 +40,7 @@ export default {
         ".nav-list__item",
         this.$store.state.animationSpeed,
         {
-          yPercent: 100,
+          yPercent: 0,
           pointerEvents: 'none',
           ease: Expo.easeInOut
         },
@@ -53,7 +53,7 @@ export default {
         ".nav-list__item",
         this.$store.state.animationSpeed / 1.3333,
         {
-          yPercent: 0,
+          yPercent: -100,
           pointerEvents: 'auto',
           ease: Expo.easeInOut,
           delay: this.$store.state.animationSpeed
@@ -69,7 +69,7 @@ export default {
 .lower-nav {
   z-index: 2;
   position: absolute;
-  bottom: 0;
+  top: 100%;
   left: 0;
   right: 0;
   pointer-events: none;

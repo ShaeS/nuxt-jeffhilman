@@ -24,6 +24,7 @@ export default {
   width: 60%;
   position: relative;
   align-self: flex-start;
+  opacity: 0;
 
   &:nth-child(odd) {
     align-self: flex-end;

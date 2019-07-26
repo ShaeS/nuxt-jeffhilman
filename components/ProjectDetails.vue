@@ -28,91 +28,71 @@
 </template>
 
 <script>
-import { TimelineLite } from 'gsap';
+import { enter, leave, enterNew, leaveOld } from '~/animations/project-details';
+
 export default {
   props: {
-    project: Object,
-    previousProject: Object,
-    nextProject: Object
+    projects: Array,
+    projectIndex: Number
   },
   data() {
     return {
       currentProject: null,
+      previousProject: null,
+      nextProject: null,
       leaving: false
     }
   },
   watch: {
-    project(newVal, oldVal) {
-      if ( oldVal === undefined ) {
+    projectIndex(newVal, oldVal) {
+      this.leaving = false;
+      if ( oldVal === null ) {
         this.enterTransition();
-      } else if ( newVal === undefined ) {
+      } else if ( newVal === null ) {
         this.leaveTransition();
       } else {
         this.leaveOldProject();
       }
     }
   },
+  computed: {
+    activeProject() {
+      return this.projects[this.projectIndex];
+    },
+    prevPro() {
+      return this.projects[( this.projectIndex + this.projects.length - 1 ) % this.projects.length];
+    },
+    nextPro() {
+      return this.projects[( this.projectIndex + 1 ) % this.projects.length];
+    }
+  },
   methods: {
     enterTransition() {
-      this.currentProject = this.project;
-      let tl = new TimelineLite();
+      this.currentProject = this.activeProject;
+      this.previousProject = this.prevPro;
+      this.nextProject = this.nextPro;
       this.$nextTick( () => {
-        tl.from( this.$el, this.$store.state.animationSpeed * 1.5, {
-          xPercent: 110,
-          ease: Expo.easeInOut
-        }).from( '.project-details__close', this.$store.state.animationSpeed / 2, {
-          opacity: 0,
-          xPercent: 100,
-          ease: Expo.easeOut
-        }, `-=${ this.$store.state.animationSpeed / 2 }`);
+        enter( this.$store, this.$el );
       });
     },
     leaveTransition() {
       this.leaving = true;
-      let tl = new TimelineLite({onComplete: () => {
-        this.currentProject = null
-      }});
-      tl.to( '.project-details__close', this.$store.state.animationSpeed, {
-        opacity: 0,
-        xPercent: 100,
-        ease: Expo.easeIn
-      }, 0)
-      .to( this.$el, this.$store.state.animationSpeed * 1.5, {
-        xPercent: 110,
-        ease: Expo.easeInOut
-      }, 0);
+      leave(this.$store, this.$el, () => {
+        this.currentProject = null;
+        this.previousProject = null;
+        this.nextProject = null;
+      });
     },
     enterNewProject() {
-      this.currentProject = this.project;
-      let tl = new TimelineLite();
+      this.currentProject = this.activeProject;
+      this.previousProject = this.prevPro;
+      this.nextProject = this.nextPro;
       this.$nextTick( () => {
-        tl.to( '.project-details__right', this.$store.state.animationSpeed / 2, {
-          opacity: 1,
-          ease: Expo.easeInOut
-        })
-        .to( '.project-details__image', this.$store.state.animationSpeed / 2, {
-          opacity: 1,
-          ease: Expo.easeInOut
-        }, `-=${ this.$store.state.animationSpeed / 2 }`)
-        .to( '.project-navigation', this.$store.state.animationSpeed / 2, {
-          opacity: 1,
-          ease: Expo.easeInOut
-        }, `-=${ this.$store.state.animationSpeed / 2 }`);;
+        enterNew(this.$store);
       });
     },
     leaveOldProject() {
-      let tl = new TimelineLite({onComplete: () => this.enterNewProject()});
-      tl.to( '.project-details__right', this.$store.state.animationSpeed, {
-        opacity: 0,
-        ease: Expo.easeInOut
-      }).to( '.project-details__image', this.$store.state.animationSpeed / 2, {
-        opacity: 0,
-        ease: Expo.easeInOut
-      }, `-=${ this.$store.state.animationSpeed / 2 }`)
-      .to( '.project-navigation', this.$store.state.animationSpeed / 2, {
-        opacity: 0,
-        ease: Expo.easeInOut
-      }, `-=${ this.$store.state.animationSpeed / 2 }`);
+      leaveOld(this.$store, () => this.enterNewProject());
     },
   },
 };
@@ -215,7 +195,7 @@ export default {
 
 
 .project-navigation {
-  height: 200px;
+  background: var(--color-grey-900);
   display: flex;
 
   &__link {
@@ -223,8 +203,12 @@ export default {
     flex: 1;
     display: flex;
     align-items: center;
-    padding: var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-md);
     color: var(--color-grey-200);
+
+    &:first-child {
+      border-right: 1px solid var(--color-grey-1000);
+    }
 
     &:hover {
       .project-navigation {
@@ -236,7 +220,7 @@ export default {
         }
 
         &__title {
-          transform: translateX(30px);
+          transform: translateX(0);
         }
       }
     }
@@ -245,14 +229,15 @@ export default {
       flex-direction: row-reverse;
 
       .project-navigation__title {
-        margin-right: -20px;
+        padding-right: var(--spacing-sm);
+        transform: translateX(var(--spacing-xl));
       }
 
       &:hover {
         .project-navigation {
 
           &__title {
-            transform: translateX(-30px);
+            transform: translateX(0);
           }
         }
       }
@@ -272,7 +257,8 @@ export default {
   &__title {
     position: relative;
     text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    margin-left: -20px;
+    padding-left: var(--spacing-sm);
+    transform: translateX(calc( -1 * var(--spacing-xl) ));
     transition: transform 0.3s;
   }
 }
