@@ -1,3 +1,5 @@
+import { TweenLite, Expo } from "gsap";
+
 export function beforeToAbout(store) {
   const title = document.getElementById("title");
   if (title) {

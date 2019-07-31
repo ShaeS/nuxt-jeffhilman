@@ -1,3 +1,5 @@
+import { TimelineLite, TweenLite, Expo } from "gsap";
+
 export function beforeFromHome(store) {
   const title = document.getElementById("title");
   if (title) {

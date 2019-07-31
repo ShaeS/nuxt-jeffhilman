@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { TimelineLite, Expo } from "gsap";
 import { mapState } from "vuex";
 
 export default {

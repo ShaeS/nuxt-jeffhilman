@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { TimelineLite, TweenLite, Expo } from "gsap";
 import { toHome, fromHome } from "~/animations/projects";
 import ProjectCard from "~/components/ProjectCard.vue";
 import ProjectDetails from "~/components/ProjectDetails.vue";

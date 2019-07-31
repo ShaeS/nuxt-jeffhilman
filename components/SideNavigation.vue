@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { TimelineLite, Expo } from "gsap";
 import { mapState } from "vuex";
 import { navFromAbout } from "~/animations/home";
 import { navFromHome } from "~/animations/about";

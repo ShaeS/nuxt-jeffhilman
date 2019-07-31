@@ -1,3 +1,5 @@
+import { TimelineLite, Expo } from "gsap";
+
 export function fromHome(store, done) {
   let tl = new TimelineLite({ onComplete: done });
   tl.from(".projects-sidebar", store.state.animationSpeed, {

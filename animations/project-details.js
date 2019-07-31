@@ -1,3 +1,5 @@
+import { TimelineLite, Expo } from "gsap";
+
 export function enter(store, el) {
   let tl = new TimelineLite();
   tl.from(el, store.state.animationSpeed * 1.5, {
