@@ -1,15 +1,29 @@
-import { TweenLite, TimelineLite, Expo } from "gsap";
-
 export function fromHome(store, done) {
   let tl = new TimelineLite({ onComplete: done });
-  tl.to(".projects-sidebar", store.state.animationSpeed, {
-    xPercent: 150,
+  tl.from(".projects-sidebar", store.state.animationSpeed, {
+    xPercent: -150,
     ease: Expo.easeOut
   })
-  .staggerTo(".project-card", store.state.animationSpeed, {
-    opacity: 1,
-    ease: Expo.easeInOut
-  }, store.state.animationSpeed / 6)
+    .staggerFrom(
+      [".projects-sidebar__title", ".projects-sidebar__content"],
+      store.state.animationSpeed,
+      {
+        opacity: 0,
+        x: -40,
+        ease: Expo.easeInOut
+      },
+      store.state.animationSpeed / 6,
+      `-=${store.state.animationSpeed / 1.1}`
+    )
+    .staggerFrom(
+      ".project-card",
+      store.state.animationSpeed,
+      {
+        opacity: 0,
+        ease: Expo.easeInOut
+      },
+      store.state.animationSpeed / 6
+    );
 }
 
 export function toHome(store, done) {
@@ -17,8 +31,13 @@ export function toHome(store, done) {
   tl.to(".project-card", store.state.animationSpeed, {
     opacity: 0,
     ease: Expo.easeInOut
-  }).to(".projects-sidebar", store.state.animationSpeed * 1.5, {
-    xPercent: -150,
-    ease: Expo.easeInOut
-  }, `-=${store.state.animationSpeed / 2}`);
+  }).to(
+    ".projects-sidebar",
+    store.state.animationSpeed * 1.5,
+    {
+      xPercent: -150,
+      ease: Expo.easeInOut
+    },
+    `-=${store.state.animationSpeed / 2}`
+  );
 }

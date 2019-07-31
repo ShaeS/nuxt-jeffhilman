@@ -41,7 +41,7 @@ export default {
         this.$store.state.animationSpeed,
         {
           yPercent: 0,
-          pointerEvents: 'none',
+          pointerEvents: "none",
           ease: Expo.easeInOut
         },
         this.$store.state.animationSpeed / 4
@@ -54,7 +54,7 @@ export default {
         this.$store.state.animationSpeed / 1.3333,
         {
           yPercent: -100,
-          pointerEvents: 'auto',
+          pointerEvents: "auto",
           ease: Expo.easeInOut,
           delay: this.$store.state.animationSpeed
         },
@@ -96,6 +96,15 @@ export default {
     text-decoration: none;
     color: white;
 
+    @media screen and (max-width: 800px) {
+      padding: 0 var(--spacing-xl);
+    }
+
+    @media screen and (max-width: 990px) {
+      justify-content: center;
+      padding: 0 var(--spacing-md);
+    }
+
     &--demo {
       background: var(--color-primary-600);
     }
@@ -113,6 +122,10 @@ export default {
     &::after {
       content: "";
       display: block;
+
+      @media screen and (max-width: 990px) {
+        content: none;
+      }
     }
 
     &::before {

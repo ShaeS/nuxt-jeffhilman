@@ -2,44 +2,9 @@
   <div class="side-nav">
     <div class="social">
       <ul class="social__list">
-        <li>
-          <a
-            class="social__link"
-            href="mailto:jhilman@live.ca"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <MailIcon class="social__icon" />
-          </a>
-        </li>
-        <li>
-          <a
-            class="social__link"
-            href="https://www.youtube.com/user/guitardude77"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <YoutubeIcon class="social__icon" />
-          </a>
-        </li>
-        <li>
-          <a
-            class="social__link"
-            href="https://soundcloud.com/jeffhilman"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <SoundcloudIcon class="social__icon" />
-          </a>
-        </li>
-        <li>
-          <a
-            class="social__link"
-            href="https://www.linkedin.com/in/hilmanjeff/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <LinkedinIcon class="social__icon" />
+        <li v-for="social in socials" :key="social._id">
+          <a class="social__link" :href="social.URL" target="_blank" rel="noopener noreferrer">
+            <component :is="social.icon" class="social__icon" />
           </a>
         </li>
       </ul>
@@ -53,7 +18,6 @@
 </template>
 
 <script>
-import { TimelineLite, Expo } from "gsap";
 import { mapState } from "vuex";
 import { navFromAbout } from "~/animations/home";
 import { navFromHome } from "~/animations/about";
@@ -74,7 +38,12 @@ export default {
       tl: null
     };
   },
-  computed: mapState(["page", "previousPage", "animationSpeed"]),
+  computed: {
+    ...mapState(["page", "previousPage", "animationSpeed"]),
+    socials() {
+      return this.$store.state.social;
+    }
+  },
   mounted() {
     this.tl = new TimelineLite({ paused: true });
     this.navAnimation();
@@ -121,6 +90,10 @@ export default {
   bottom: 0;
   z-index: 9;
   transform: translateX(-100%);
+
+  @media screen and (max-width: 990px) {
+    bottom: auto;
+  }
 }
 
 .social {
@@ -130,6 +103,10 @@ export default {
   width: calc(var(--side-nav-size) / 2);
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: 990px) {
+    display: none;
+  }
 
   &__list {
     margin-top: auto;
@@ -156,6 +133,10 @@ export default {
   width: calc(var(--side-nav-size) / 2);
   padding: var(--spacing-md);
   transform: translateX(-100%);
+
+  @media screen and (max-width: 990px) {
+    width: var(--side-nav-size);
+  }
 
   &:hover::after {
     transform: translateX(4px);
@@ -225,7 +206,6 @@ export default {
   }
 
   &:hover & {
-
     &__icon {
       transform: scaleX(0.6);
 

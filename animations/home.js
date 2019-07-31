@@ -1,5 +1,3 @@
-import { TweenLite, Expo } from "gsap";
-
 export function beforeToAbout(store) {
   const title = document.getElementById("title");
   if (title) {
@@ -10,7 +8,7 @@ export function beforeToAbout(store) {
 export function fromAbout(store, done) {
   const title = document.getElementById("title");
   let distance = store.state.previousTitlePos - title.getBoundingClientRect().x;
-  TweenLite.from( "#title", store.state.animationSpeed, {
+  TweenLite.from("#title", store.state.animationSpeed, {
     x: distance,
     ease: Expo.easeInOut,
     onComplete: done
@@ -18,7 +16,7 @@ export function fromAbout(store, done) {
 }
 
 export function enterHome(store, done) {
-  TweenLite.from( ".image", store.state.animationSpeed, {
+  TweenLite.from(".image", store.state.animationSpeed, {
     xPercent: 100,
     ease: Expo.easeOut,
     onComplete: done

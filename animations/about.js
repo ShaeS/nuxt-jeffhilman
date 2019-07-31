@@ -1,7 +1,4 @@
-import { TweenLite, TimelineLite, Expo } from "gsap";
-
 export function beforeFromHome(store) {
-  console.log("before from home");
   const title = document.getElementById("title");
   if (title) {
     store.commit("updatePreviousTitlePos", title.getBoundingClientRect().x);
@@ -65,5 +62,39 @@ export function toHome(store, done) {
   ).to(".about", store.state.animationSpeed, {
     xPercent: 100,
     ease: Expo.easeIn
+  });
+}
+
+export function mobileFromHome(store, done) {
+  let tl = new TimelineLite({ onComplete: done });
+  tl.from(".about", store.state.animationSpeed, {
+    xPercent: 100,
+    ease: Expo.easeOut
+  })
+    .staggerFrom(
+      ".about-details__item",
+      store.state.animationSpeed,
+      {
+        opacity: 0,
+        ease: Expo.easeInOut
+      },
+      store.state.animationSpeed / 16
+    )
+    .from(
+      ".about-details__image",
+      store.state.animationSpeed,
+      {
+        opacity: 0,
+        ease: Expo.easeOut
+      },
+      `-=${store.state.animationSpeed / 4}`
+    );
+}
+
+export function mobileToHome(store, done) {
+  TweenLite.to(".about", store.state.animationSpeed, {
+    xPercent: 100,
+    ease: Expo.easeIn,
+    onComplete: done
   });
 }

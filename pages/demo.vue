@@ -2,7 +2,7 @@
   <main class="main">
     <iframe
       class="video-player"
-      src="https://player.vimeo.com/video/215435955?autoplay=1"
+      :src="`https://player.vimeo.com/video/${id}?autoplay=1`"
       allow="autoplay; fullscreen"
       allowfullscreen
     ></iframe>
@@ -13,9 +13,25 @@
 import { fromHome, toHome } from "~/animations/demo";
 
 export default {
+  async asyncData({ app, env }) {
+    const { data } = await app.$axios.post(
+      env.demoUrl,
+      JSON.stringify({
+        populate: 1
+      }),
+      {
+        headers: { "Content-Type": "application/json" }
+      }
+    );
+    return { id: data.Vimeo };
+  },
+  mounted() {
+    TweenLite.set(".main", { visibility: "visible" }, 1);
+  },
   transition: {
     mode: "out-in",
     css: false,
+    appear: true,
     enter(el, done) {
       fromHome(this.$store, done);
     },
@@ -28,9 +44,14 @@ export default {
 
 <style lang="scss" scoped>
 .main {
+  visibility: hidden;
   position: relative;
   z-index: 1;
   padding-left: var(--side-nav-size);
+
+  @media screen and (max-width: 990px) {
+    padding-left: 0;
+  }
 }
 
 .video-player {

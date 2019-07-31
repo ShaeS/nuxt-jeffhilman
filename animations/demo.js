@@ -1,5 +1,3 @@
-import { TweenLite, Expo } from "gsap";
-
 export function fromHome(store, done) {
   TweenLite.from(".main", store.state.animationSpeed, {
     opacity: 0,

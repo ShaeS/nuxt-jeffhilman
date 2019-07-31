@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 module.exports = {
   /*
    ** Headers of the page
@@ -22,9 +24,24 @@ module.exports = {
       }
     ]
   },
+  env: {
+    baseUrl: process.env.BASE_URL,
+    projectsUrl: process.env.PROJECTS_URL,
+    socialUrl: process.env.SOCIAL_URL,
+    homeUrl: process.env.HOME_URL,
+    aboutUrl: process.env.ABOUT_URL,
+    projectPageUrl: process.env.PROJECT_PAGE_URL,
+    demoUrl: process.env.DEMO_URL
+  },
+  modules: ["@nuxtjs/axios"],
   router: {
     middleware: "pages"
   },
+  plugins: [
+    { src: "~/plugins/resize", ssr: false },
+    { src: "~/plugins/reduced-motion", ssr: false },
+    { src: "~/plugins/gsap", ssr: false }
+  ],
   /*
    ** Customize the progress bar color
    */

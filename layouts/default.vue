@@ -64,6 +64,10 @@ export default {
   /* NAV SIZES */
   --lower-nav-size: 14vh;
   --side-nav-size: 144px;
+
+  @media screen and (max-width: 990px) {
+    --side-nav-size: 72px;
+  }
 }
 html,
 body {
@@ -101,6 +105,10 @@ body {
   font-size: 125vh;
   font-weight: 900;
   line-height: 0.8;
+
+  @media screen and (max-width: 990px) {
+    line-height: 0.7;
+  }
 }
 </style>
 
