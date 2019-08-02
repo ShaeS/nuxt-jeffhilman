@@ -153,6 +153,7 @@ export default {
 
     @media screen and (max-width: 900px) {
       position: fixed;
+      z-index: 99;
       bottom: 0;
       left: 0;
       width: 100%;
@@ -169,10 +170,8 @@ export default {
     }
 
     @media screen and (max-width: 900px) {
-      padding: var(--spacing-xxxxl) var(--spacing-xl) var(--spacing-xxl);
-    }
-
-    @media screen and (max-width: 700px) {
+      padding: var(--spacing-xxxxl) var(--spacing-xl)
+        calc(var(--spacing-md) + 100px);
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
     }
