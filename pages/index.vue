@@ -81,7 +81,6 @@ export default {
 .content {
   position: relative;
   z-index: 1;
-  height: calc(100vh - (var(--lower-nav-size) / 2));
   display: flex;
   flex-direction: column;
   align-items: center;
