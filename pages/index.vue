@@ -80,7 +80,6 @@ export default {
 }
 
 .content {
-  height: calc();
   position: relative;
   z-index: 1;
   display: flex;
