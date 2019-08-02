@@ -82,8 +82,6 @@ body {
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
   background: var(--color-grey-1000);
-  overflow: hidden;
-  position: relative;
 }
 
 *,

@@ -40,6 +40,11 @@ export default {
     TitleArea
   },
   mounted() {
+    if (process.isClient) {
+      document.body.addEventListener("touchstart", function(e) {
+        e.preventDefault();
+      });
+    }
     TweenLite.set(".main", { visibility: "visible" }, 1);
   },
   transition: {
