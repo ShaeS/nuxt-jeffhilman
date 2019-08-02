@@ -75,7 +75,7 @@ export default {
 <style lang="scss" scoped>
 .main {
   visibility: hidden;
-  height: calc(100vh - var(--lower-nav-size));
+  height: calc((var(--vh, 1vh) * 100) - var(--lower-nav-size));
   display: flex;
 }
 
