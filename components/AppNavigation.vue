@@ -81,14 +81,13 @@ export default {
   padding: 0;
   list-style: none;
   display: flex;
+  transform: translateY(100%);
 
   &__item {
     pointer-events: auto;
     display: flex;
-    transform-origin: 0 0;
     width: 33.3334%;
     height: var(--lower-nav-size);
-    transform: translateY(100%);
   }
 
   &__link {
