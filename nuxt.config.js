@@ -42,7 +42,8 @@ module.exports = {
   },
   plugins: [
     { src: "~/plugins/resize", ssr: false },
-    { src: "~/plugins/reduced-motion", ssr: false }
+    { src: "~/plugins/reduced-motion", ssr: false },
+    { src: "~/plugins/viewport", ssr: false }
   ],
   /*
    ** Customize the progress bar color
