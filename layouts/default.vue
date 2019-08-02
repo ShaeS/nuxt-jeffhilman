@@ -82,9 +82,6 @@ body {
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
   background: var(--color-grey-1000);
-  display: flex;
-  align-items: center;
-  min-height: 100vh;
 }
 
 *,

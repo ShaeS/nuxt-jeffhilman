@@ -75,10 +75,12 @@ export default {
 <style lang="scss" scoped>
 .main {
   visibility: hidden;
+  height: calc(100vh - var(--lower-nav-size));
   display: flex;
 }
 
 .content {
+  height: calc();
   position: relative;
   z-index: 1;
   display: flex;
