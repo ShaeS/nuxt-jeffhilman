@@ -47,7 +47,6 @@ export default {
   visibility: hidden;
   position: relative;
   z-index: 1;
-  height: calc(var(--vh, 1vh) * 100);
   padding-left: var(--side-nav-size);
 
   @media screen and (max-width: 990px) {
@@ -58,7 +57,7 @@ export default {
 .video-player {
   width: 100%;
   border: 0;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 }
 </style>
 
