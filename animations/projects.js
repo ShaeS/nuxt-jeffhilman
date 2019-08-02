@@ -24,7 +24,8 @@ export function fromHome(store, done) {
         opacity: 0,
         ease: Expo.easeInOut
       },
-      store.state.animationSpeed / 6
+      store.state.animationSpeed / 6,
+      `-=${store.state.animationSpeed / 1.333}`
     );
 }
 

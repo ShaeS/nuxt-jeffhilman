@@ -91,6 +91,10 @@ body {
   margin: 0;
 }
 
+img {
+  max-width: 100%;
+}
+
 .background-text {
   pointer-events: none;
   color: var(--color-grey-900);

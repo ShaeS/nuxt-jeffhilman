@@ -20,7 +20,7 @@
     </div>
     <div class="project-details__right">
       <h3 class="project-details__title">{{ currentProject.Title }}</h3>
-      <div class="project-details__content" v-html="currentProject.Description"></div>
+      <div class="project-details__content" v-html="description"></div>
     </div>
     <button @click="$emit( 'close' )" class="project-details__close" :class="{ leaving }">
       <span class="project-details__close-icon"></span>
@@ -57,6 +57,13 @@ export default {
     }
   },
   computed: {
+    description() {
+      let newDescription = this.currentProject.Description.replace(
+        /<img src="/g,
+        '<img src="' + process.env.baseUrl
+      );
+      return newDescription;
+    },
     activeProject() {
       return this.projects[this.projectIndex];
     },
@@ -153,6 +160,7 @@ export default {
   }
 
   &__right {
+    overflow-y: auto;
     flex: 1;
     padding: var(--spacing-xxxl) var(--spacing-xxl);
 
@@ -162,6 +170,11 @@ export default {
 
     @media screen and (max-width: 900px) {
       padding: var(--spacing-xxxxl) var(--spacing-xl) var(--spacing-xxl);
+    }
+
+    @media screen and (max-width: 700px) {
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
     }
   }
 

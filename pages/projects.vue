@@ -90,6 +90,14 @@ export default {
           ease: Expo.easeInOut
         },
         0
+      )
+      .to(
+        ["html", "body"],
+        0,
+        {
+          overflow: "hidden"
+        },
+        0
       );
   },
   methods: {
