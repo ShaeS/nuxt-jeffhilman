@@ -120,48 +120,24 @@ export default {
 .main {
   visibility: hidden;
   display: flex;
+  justify-content: flex-end;
 
   @media screen and (max-width: 700px) {
     display: block;
-    overflow-y: auto;
-    height: 100vh;
   }
 }
 
 .content {
   position: relative;
   z-index: 1;
-  flex: 1;
+  width: calc(66.6667vw - var(--side-nav-size));
 
-  @media screen and (min-width: 700px) {
-    overflow-y: auto;
-    height: 100vh;
-    width: 100%;
+  @media screen and (max-width: 1100px) {
+    width: calc(85vw - var(--side-nav-size));
+  }
 
-    scrollbar-color: var(--color-primary-700) var(--color-grey-1000);
-    scrollbar-width: thin;
-
-    &::-webkit-scrollbar {
-      background-color: var(--color-grey-1000);
-      width: 24px;
-    }
-
-    /* background of the scrollbar except button or resizer */
-    &::-webkit-scrollbar-track {
-      background-color: var(--color-grey-1000);
-    }
-
-    /* scrollbar itself */
-    &::-webkit-scrollbar-thumb {
-      background-color: var(--color-primary-700);
-      border-radius: 16px;
-      border: 8px solid var(--color-grey-1000);
-    }
-
-    /* set button(top and bottom of the scrollbar) */
-    &::-webkit-scrollbar-button {
-      display: none;
-    }
+  @media screen and (max-width: 700px) {
+    width: 100vw;
   }
 }
 
@@ -179,9 +155,11 @@ export default {
 }
 
 .projects-sidebar {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
   z-index: 3;
-  height: 100vh;
   width: calc(var(--side-nav-size) + 33.3334vw);
   padding: var(--spacing-xxxl) var(--spacing-xl);
   padding-left: calc(var(--spacing-xl) + var(--side-nav-size));
@@ -196,9 +174,11 @@ export default {
   }
 
   @media screen and (max-width: 700px) {
+    position: relative;
     justify-content: flex-start;
     padding: var(--spacing-xxxxl) var(--spacing-xl) var(--spacing-xxl);
     width: 100%;
+    bottom: auto;
     height: auto;
   }
 
