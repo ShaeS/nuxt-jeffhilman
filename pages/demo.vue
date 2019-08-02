@@ -47,6 +47,7 @@ export default {
   visibility: hidden;
   position: relative;
   z-index: 1;
+  height: calc(var(--vh, 1vh) * 100);
   padding-left: var(--side-nav-size);
 
   @media screen and (max-width: 990px) {
