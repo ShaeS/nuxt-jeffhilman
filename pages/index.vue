@@ -75,7 +75,7 @@ export default {
 <style lang="scss" scoped>
 .main {
   visibility: hidden;
-  height: calc(100vh - var(--lower-nav-size));
+  height: 100vh;
   display: flex;
 }
 
@@ -88,9 +88,11 @@ export default {
   justify-content: center;
   color: white;
   flex: 2;
+  padding-bottom: var(--lower-nav-size);
 
   @media screen and (max-width: 800px) {
     padding: var(--spacing-md);
+    padding-bottom: var(--lower-nav-size);
   }
 }
 
