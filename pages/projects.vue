@@ -171,7 +171,7 @@ export default {
   width: calc(var(--side-nav-size) + 33.3334vw);
   padding: var(--spacing-xxxl) var(--spacing-xl);
   padding-left: calc(var(--spacing-xl) + var(--side-nav-size));
-  background: var(--color-primary-700);
+  background: var(--color-primary-dark);
   color: var(--color-grey-100);
   overflow: hidden;
 

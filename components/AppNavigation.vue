@@ -108,11 +108,11 @@ export default {
     }
 
     &--demo {
-      background: var(--color-primary-600);
+      background: var(--color-primary);
     }
 
     &--projects {
-      background: var(--color-primary-700);
+      background: var(--color-primary-dark);
     }
 
     &--about {

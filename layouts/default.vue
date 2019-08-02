@@ -22,15 +22,8 @@ export default {
 <style lang="scss">
 :root {
   /* COLORS -- PRIMARY */
-  --color-primary-100: hsl(39, 50%, 95%);
-  --color-primary-200: hsl(39, 50%, 88%);
-  --color-primary-300: hsl(39, 50%, 80%);
-  --color-primary-400: hsl(39, 50%, 75%);
-  --color-primary-500: hsl(39, 50%, 70%);
-  --color-primary-600: hsl(39, 50%, 60%);
-  --color-primary-700: hsl(39, 50%, 45%);
-  --color-primary-800: hsl(39, 50%, 30%);
-  --color-primary-900: hsl(39, 50%, 20%);
+  --color-primary: hsl(46, 57%, 51%);
+  --color-primary-dark: hsl(46, 64%, 43%);
 
   /* COLORS -- GREY */
   --color-grey-100: hsl(0, 0%, 97%);
