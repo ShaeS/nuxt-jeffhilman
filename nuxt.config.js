@@ -5,6 +5,9 @@ module.exports = {
    ** Headers of the page
    */
   head: {
+    htmlAttrs: {
+      lang: "en"
+    },
     title: "Jeff Hilman | Audio Engineer",
     meta: [
       { charset: "utf-8" },
@@ -33,7 +36,7 @@ module.exports = {
     projectPageUrl: process.env.PROJECT_PAGE_URL,
     demoUrl: process.env.DEMO_URL
   },
-  modules: ["@nuxtjs/axios"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/sitemap"],
   router: {
     middleware: "pages"
   },

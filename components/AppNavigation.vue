@@ -70,7 +70,7 @@ export default {
 .lower-nav {
   z-index: 2;
   position: absolute;
-  top: 100%;
+  bottom: 0;
   left: 0;
   right: 0;
   pointer-events: none;
@@ -87,6 +87,7 @@ export default {
     transform-origin: 0 0;
     width: 33.3334%;
     height: var(--lower-nav-size);
+    transform: translateY(100%);
   }
 
   &__link {
