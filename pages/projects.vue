@@ -10,7 +10,7 @@
       <div class="scroll-wrap">
         <ProjectCard
           v-for="(project, index) in projects"
-          :key="project.Title"
+          :key="project._id"
           @click.native="viewProject(index)"
           :project="project"
         />
