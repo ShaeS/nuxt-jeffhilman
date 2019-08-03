@@ -20,7 +20,17 @@
     </div>
     <div class="project-details__right">
       <h3 class="project-details__title">{{ currentProject.Title }}</h3>
+      <h4
+        v-if="currentProject.subtitle"
+        class="project-details__subtitle"
+      >{{ currentProject.subtitle }}</h4>
       <div class="project-details__content" v-html="description"></div>
+      <a
+        v-if="currentProject.linkurl && currentProject.linktext"
+        :href="currentProject.linkurl"
+        target="_blank"
+        class="project-details__cta"
+      >{{ currentProject.linktext }}</a>
     </div>
     <button @click="$emit( 'close' )" class="project-details__close" :class="{ leaving }">
       <span class="project-details__close-icon"></span>
@@ -194,11 +204,31 @@ export default {
   &__title {
     font-family: var(--font-serif);
     font-size: 48px;
+  }
+
+  &__subtitle {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    color: var(--color-grey-500);
     margin-bottom: var(--spacing-xl);
   }
 
   &__content {
     line-height: 1.6;
+  }
+
+  &__cta {
+    display: inline-block;
+    background: var(--color-primary);
+    color: white;
+    text-decoration: none;
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-md) var(--spacing-xl);
+    transition: background 0.2s;
+
+    &:hover {
+      background: var(--color-primary-dark);
+    }
   }
 
   &__close {
