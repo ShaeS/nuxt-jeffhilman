@@ -110,6 +110,15 @@ img {
     margin-top: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
   }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-serif);
+  }
 }
 </style>
 
