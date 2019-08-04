@@ -104,5 +104,12 @@ img {
     line-height: 0.7;
   }
 }
+
+.project-details__content {
+  > * {
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+}
 </style>
 

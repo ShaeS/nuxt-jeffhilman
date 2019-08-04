@@ -113,6 +113,15 @@ export default {
         0
       )
       .to(
+        ".other-work",
+        this.$store.state.animationSpeed * 1.5,
+        {
+          xPercent: 100,
+          ease: Expo.easeInOut
+        },
+        0
+      )
+      .to(
         ["html", "body"],
         0,
         {

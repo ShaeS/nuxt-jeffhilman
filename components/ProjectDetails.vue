@@ -69,8 +69,8 @@ export default {
   computed: {
     description() {
       let newDescription = this.currentProject.Description.replace(
-        /<img src="/g,
-        '<img src="' + process.env.baseUrl
+        /src="/g,
+        'src="' + process.env.baseUrl
       );
       return newDescription;
     },
