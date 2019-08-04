@@ -15,6 +15,15 @@
           :project="project"
         />
       </div>
+      <div class="other-work">
+        <h3 class="other-work__title">More Projects</h3>
+        <ul class="other-work__list">
+          <li v-for="project in miniProjects" :key="project._id">
+            <MiniProjectCard :project="project" />
+          </li>
+        </ul>
+        <div class="background-text background-text--sub-more">More</div>
+      </div>
     </section>
 
     <ProjectDetails
@@ -31,6 +40,7 @@
 import { TimelineLite, TweenLite, Expo } from "gsap";
 import { toHome, fromHome } from "~/animations/projects";
 import ProjectCard from "~/components/ProjectCard.vue";
+import MiniProjectCard from "~/components/MiniProjectCard.vue";
 import ProjectDetails from "~/components/ProjectDetails.vue";
 
 export default {
@@ -53,14 +63,25 @@ export default {
         headers: { "Content-Type": "application/json" }
       }
     );
+    const { data: miniData } = await app.$axios.post(
+      env.miniprojectsUrl,
+      JSON.stringify({
+        populate: 1
+      }),
+      {
+        headers: { "Content-Type": "application/json" }
+      }
+    );
     return {
       title: pageData.Title,
       description: pageData.Description,
-      projects: data.entries
+      projects: data.entries,
+      miniProjects: miniData.entries
     };
   },
   components: {
     ProjectCard,
+    MiniProjectCard,
     ProjectDetails
   },
   data() {
@@ -137,7 +158,7 @@ export default {
 
 .content {
   position: relative;
-  z-index: 1;
+  z-index: 4;
   width: calc(66.6667vw - var(--side-nav-size));
 
   @media screen and (max-width: 1100px) {
@@ -157,8 +178,61 @@ export default {
   color: white;
   padding: var(--spacing-xxl);
 
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 900px) {
     padding: var(--spacing-xl);
+  }
+}
+
+.other-work {
+  overflow: hidden;
+  margin-left: calc(-1 * var(--spacing-xxxl));
+  padding: var(--spacing-xxl);
+  position: relative;
+  background: var(--color-grey-200);
+  color: var(--color-grey-900);
+
+  @media screen and (max-width: 700px) {
+    margin-left: 0;
+    padding: var(--spacing-xl);
+  }
+
+  &__title {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    margin-bottom: var(--spacing-md);
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    list-style-type: none;
+
+    li {
+      margin: var(--spacing-sm) 0;
+      width: 50%;
+      padding-right: var(--spacing-sm);
+
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
+    }
+  }
+
+  .background-text--sub-more {
+    font-size: 20vw;
+    position: absolute;
+    opacity: 0.05;
+    bottom: -5vh;
+    right: -5vw;
+    left: auto;
+    top: auto;
+
+    @media screen and (max-width: 900px) {
+      font-size: 30vw;
+      bottom: -2vw;
+      right: -2vw;
+    }
   }
 }
 

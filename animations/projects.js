@@ -26,21 +26,40 @@ export function fromHome(store, done) {
       },
       store.state.animationSpeed / 6,
       `-=${store.state.animationSpeed / 1.333}`
-    );
+    )
+    .from(".other-work", store.state.animationSpeed, {
+      xPercent: 100,
+      ease: Expo.easeOut
+    });
 }
 
 export function toHome(store, done) {
   let tl = new TimelineLite({ onComplete: done });
-  tl.to(".project-card", store.state.animationSpeed, {
-    opacity: 0,
-    ease: Expo.easeInOut
-  }).to(
-    ".projects-sidebar",
-    store.state.animationSpeed * 1.5,
+  tl.to(
+    ".project-card",
+    store.state.animationSpeed,
     {
-      xPercent: -150,
+      opacity: 0,
       ease: Expo.easeInOut
     },
-    `-=${store.state.animationSpeed / 2}`
-  );
+    0
+  )
+    .to(
+      ".projects-sidebar",
+      store.state.animationSpeed * 1.5,
+      {
+        xPercent: -150,
+        ease: Expo.easeInOut
+      },
+      0
+    )
+    .to(
+      ".other-work",
+      store.state.animationSpeed,
+      {
+        xPercent: 100,
+        ease: Expo.easeIn
+      },
+      0
+    );
 }

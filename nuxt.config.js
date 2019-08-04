@@ -30,6 +30,7 @@ module.exports = {
   env: {
     baseUrl: process.env.BASE_URL,
     projectsUrl: process.env.PROJECTS_URL,
+    miniprojectsUrl: process.env.MINIPROJECTS_URL,
     socialUrl: process.env.SOCIAL_URL,
     homeUrl: process.env.HOME_URL,
     aboutUrl: process.env.ABOUT_URL,

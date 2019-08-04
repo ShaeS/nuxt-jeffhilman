@@ -190,6 +190,7 @@ export default {
   &__image-wrap {
     flex: 1;
     display: flex;
+    justify-content: center;
     align-items: center;
 
     @media screen and (max-width: 900px) {
@@ -199,21 +200,28 @@ export default {
 
   &__image {
     max-width: 100%;
+    max-height: 85vh;
   }
 
   &__title {
     font-family: var(--font-serif);
     font-size: 48px;
+    line-height: 1.2;
+
+    @media screen and (max-width: 700px) {
+      font-size: 40px;
+    }
   }
 
   &__subtitle {
     font-family: var(--font-serif);
     font-size: 18px;
     color: var(--color-grey-500);
-    margin-bottom: var(--spacing-xl);
+    margin-top: var(--spacing-xxxs);
   }
 
   &__content {
+    margin-top: var(--spacing-xl);
     line-height: 1.6;
   }
 
