@@ -113,6 +113,16 @@ export default {
         0
       )
       .to(
+        ".project-card",
+        this.$store.state.animationSpeed * 1.5,
+        {
+          xPercent: 100,
+          opacity: 0,
+          ease: Expo.easeInOut
+        },
+        0
+      )
+      .to(
         ".other-work",
         this.$store.state.animationSpeed * 1.5,
         {
