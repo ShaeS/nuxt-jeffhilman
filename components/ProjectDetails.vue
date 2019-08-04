@@ -185,6 +185,11 @@ export default {
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
     }
+
+    @media screen and (max-width: 700px) {
+      padding-left: var(--spacing-md);
+      padding-right: var(--spacing-md);
+    }
   }
 
   &__image-wrap {

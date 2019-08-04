@@ -154,6 +154,11 @@ export default {
     padding: var(--spacing-xxxxl) var(--spacing-xl) var(--spacing-xxl);
   }
 
+  @media screen and (max-width: 700px) {
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+
   .background-text--sub {
     writing-mode: vertical-lr;
     font-size: 40vh;
