@@ -32,7 +32,7 @@ export function fromHome(store, done) {
       ease: Expo.easeOut
     }).to( ["html", "body"], 0, {
       overflow: "visible"
-    }
+    }, `-=${store.state.animationSpeed / 2}`
   );
 }
 
