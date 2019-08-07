@@ -30,12 +30,18 @@ export function fromHome(store, done) {
     .from(".other-work", store.state.animationSpeed, {
       xPercent: 100,
       ease: Expo.easeOut
-    });
+    }).to( ["html", "body"], 0, {
+      overflow: "visible"
+    }
+  );
 }
 
 export function toHome(store, done) {
   let tl = new TimelineLite({ onComplete: done });
-  tl.to(
+  tl.to( ["html", "body"], 0, {
+      overflow: "hidden"
+    })
+  .to(
     ".project-card",
     store.state.animationSpeed,
     {

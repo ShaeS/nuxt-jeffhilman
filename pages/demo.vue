@@ -57,7 +57,7 @@ export default {
 .video-player {
   width: 100%;
   border: 0;
-  height: calc(var(--vh, 1vh) * 100);
+  height: calc(var(--vh, 1vh) * 99);
 }
 </style>
 

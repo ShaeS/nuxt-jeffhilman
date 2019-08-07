@@ -1,4 +1,4 @@
-import { TweenLite, Expo } from "gsap";
+import { TweenLite, Expo, TimelineLite } from "gsap";
 
 export function beforeToAbout(store) {
   const title = document.getElementById("title");
@@ -18,14 +18,21 @@ export function fromAbout(store, done) {
 }
 
 export function enterHome(store, done) {
-  TweenLite.from(".image", store.state.animationSpeed, {
+  const tl = new TimelineLite( {onComplete: done});
+  tl.from(".image", store.state.animationSpeed, {
     xPercent: 100,
     ease: Expo.easeOut,
-    onComplete: done
-  });
+    }).to( ["html", "body"], 0, {
+      overflow: "visible"
+    }
+  );
 }
 
 export function leaveHome(store, done) {
+  TweenLite.to( ["html", "body"], 0, {
+      overflow: "hidden"
+    }
+  );
   TweenLite.to(".image", store.state.animationSpeed, {
     xPercent: 100,
     ease: Expo.easeIn,

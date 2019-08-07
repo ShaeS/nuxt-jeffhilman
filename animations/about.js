@@ -48,12 +48,16 @@ export function fromHome(store, done) {
       },
       store.state.animationSpeed / 16,
       `-=${store.state.animationSpeed / 1.3333}`
-    );
+    ).to( ["html", "body"], 0, {
+      overflow: "visible"
+    });
 }
 
 export function toHome(store, done) {
   let tl = new TimelineLite({ onComplete: done });
-  tl.staggerTo(
+  tl.to( ["html", "body"], 0, {
+    overflow: "hidden"
+  }).staggerTo(
     [".about-details__contact", ".about-details__image"],
     store.state.animationSpeed / 1.33333,
     {
