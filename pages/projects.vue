@@ -166,6 +166,7 @@ export default {
 
 <style lang="scss" scoped>
 .main {
+  overflow: hidden;
   visibility: hidden;
   display: flex;
   justify-content: flex-end;

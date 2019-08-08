@@ -26,14 +26,13 @@ export function fromHome(store, done) {
       },
       store.state.animationSpeed / 6,
       `-=${store.state.animationSpeed / 1.333}`
-    )
+    ).to( ["html", "body"], 0, {
+      overflow: "visible"
+    })
     .from(".other-work", store.state.animationSpeed, {
       xPercent: 100,
       ease: Expo.easeOut
-    }).to( ["html", "body"], 0, {
-      overflow: "visible"
-    }
-  );
+    });
 }
 
 export function toHome(store, done) {
