@@ -1,7 +1,7 @@
-const fs = require("fs");
+const fs = require('fs');
 fs.writeFileSync(
-  "./.env",
-  `
+    './.env',
+    `
 BASE_URL=${process.env.BASE_URL}\n
 PROJECTS_URL=${process.env.PROJECTS_URL}\n
 MINIPROJECTS_URL=${process.env.MINIPROJECTS_URL}\n

@@ -1,18 +1,18 @@
-import { TweenLite, Expo } from "gsap";
+import {TweenLite, Expo} from 'gsap';
 
 export function fromHome(store, done) {
-  TweenLite.from(".main", store.state.animationSpeed, {
+  TweenLite.from('.main', store.state.animationSpeed, {
     opacity: 0,
     ease: Expo.easeInOut,
     delay: store.state.animationSpeed,
-    onComplete: done
+    onComplete: done,
   });
 }
 
 export function toHome(store, done) {
-  TweenLite.to(".main", store.state.animationSpeed, {
+  TweenLite.to('.main', store.state.animationSpeed, {
     opacity: 0,
     ease: Expo.easeInOut,
-    onComplete: done
+    onComplete: done,
   });
 }

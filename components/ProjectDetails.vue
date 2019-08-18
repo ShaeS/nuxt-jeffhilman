@@ -1,19 +1,31 @@
 <template>
-  <section v-if="currentProject" class="project-details">
+  <section
+    v-if="currentProject"
+    class="project-details">
     <div class="project-details__left">
       <div class="project-details__image-wrap">
-        <img class="project-details__image" :src="currentImage" />
+        <img
+          :src="currentImage"
+          class="project-details__image" >
       </div>
       <div class="project-navigation">
-        <div @click="$emit( 'prev' )" class="project-navigation__link">
-          <img class="project-navigation__image" :src="previousImage" alt />
+        <div
+          class="project-navigation__link"
+          @click="$emit( 'prev' )">
+          <img
+            :src="previousImage"
+            class="project-navigation__image"
+            alt >
           <h4 class="project-navigation__title">{{ previousProject.Title }}</h4>
         </div>
         <div
-          @click="$emit( 'next' )"
           class="project-navigation__link project-navigation__link--reverse"
+          @click="$emit( 'next' )"
         >
-          <img class="project-navigation__image" :src="nextImage" alt />
+          <img
+            :src="nextImage"
+            class="project-navigation__image"
+            alt >
           <h4 class="project-navigation__title">{{ nextProject.Title }}</h4>
         </div>
       </div>
@@ -24,7 +36,9 @@
         v-if="currentProject.subtitle"
         class="project-details__subtitle"
       >{{ currentProject.subtitle }}</h4>
-      <div class="project-details__content" v-html="description"></div>
+      <div
+        class="project-details__content"
+        v-html="description"/>
       <a
         v-if="currentProject.linkurl && currentProject.linktext"
         :href="currentProject.linkurl"
@@ -32,45 +46,36 @@
         class="project-details__cta"
       >{{ currentProject.linktext }}</a>
     </div>
-    <button @click="$emit( 'close' )" class="project-details__close" :class="{ leaving }">
-      <span class="project-details__close-icon"></span>
+    <button
+      :class="{ leaving }"
+      class="project-details__close"
+      @click="$emit( 'close' )">
+      <span class="project-details__close-icon"/>
     </button>
   </section>
 </template>
 
 <script>
-import { enter, leave, enterNew, leaveOld } from "~/animations/project-details";
+import {enter, leave, enterNew, leaveOld} from '~/animations/project-details';
 
 export default {
   props: {
     projects: Array,
-    projectIndex: Number
+    projectIndex: Number,
   },
   data() {
     return {
       currentProject: null,
       previousProject: null,
       nextProject: null,
-      leaving: false
+      leaving: false,
     };
-  },
-  watch: {
-    projectIndex(newVal, oldVal) {
-      this.leaving = false;
-      if (oldVal === null) {
-        this.enterTransition();
-      } else if (newVal === null) {
-        this.leaveTransition();
-      } else {
-        this.leaveOldProject();
-      }
-    }
   },
   computed: {
     description() {
-      let newDescription = this.currentProject.Description.replace(
-        /src="/g,
-        'src="' + process.env.baseUrl
+      const newDescription = this.currentProject.Description.replace(
+          /src="/g,
+          'src="' + process.env.baseUrl
       );
       return newDescription;
     },
@@ -79,7 +84,7 @@ export default {
     },
     prevPro() {
       return this.projects[
-        (this.projectIndex + this.projects.length - 1) % this.projects.length
+          (this.projectIndex + this.projects.length - 1) % this.projects.length
       ];
     },
     nextPro() {
@@ -93,7 +98,19 @@ export default {
     },
     previousImage() {
       return process.env.baseUrl + this.previousProject.Image.path;
-    }
+    },
+  },
+  watch: {
+    projectIndex(newVal, oldVal) {
+      this.leaving = false;
+      if (oldVal === null) {
+        this.enterTransition();
+      } else if (newVal === null) {
+        this.leaveTransition();
+      } else {
+        this.leaveOldProject();
+      }
+    },
   },
   methods: {
     enterTransition() {
@@ -122,8 +139,8 @@ export default {
     },
     leaveOldProject() {
       leaveOld(this.$store, () => this.enterNewProject());
-    }
-  }
+    },
+  },
 };
 </script>
 

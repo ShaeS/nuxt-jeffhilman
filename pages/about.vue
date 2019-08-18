@@ -1,26 +1,42 @@
 <template>
   <main class="main">
     <section class="content">
-      <TitleArea id="title" :topTitle="topTitle" :bottomTitle="bottomTitle" :subtitle="subtitle" />
+      <TitleArea
+        id="title"
+        :top-title="topTitle"
+        :bottom-title="bottomTitle"
+        :subtitle="subtitle" />
     </section>
     <section class="about">
       <div class="background-text background-text--sub">About</div>
       <div class="about__wrap">
         <h3 class="about__title">{{ title }}</h3>
-        <div class="about__content" v-html="description"></div>
+        <div
+          class="about__content"
+          v-html="description"/>
         <div class="about-details">
           <div class="about-details__contact">
             <h3 class="about-details__title">Contact</h3>
             <ul class="about-details__list">
-              <li v-for="social in socials" :key="social._id" class="about-details__item">
-                <a :href="social.URL" target="_blank" rel="noopener noreferrer">
-                  <component :is="social.icon" class="icon" />
+              <li
+                v-for="social in socials"
+                :key="social._id"
+                class="about-details__item">
+                <a
+                  :href="social.URL"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  <component
+                    :is="social.icon"
+                    class="icon" />
                   {{ social.Name }}
                 </a>
               </li>
             </ul>
           </div>
-          <div class="about-details__image" :style="{ backgroundImage: `url('${image}')`}"></div>
+          <div
+            :style="{ backgroundImage: `url('${image}')`}"
+            class="about-details__image"/>
         </div>
       </div>
     </section>
@@ -28,38 +44,38 @@
 </template>
 
 <script>
-import TitleArea from "~/components/TitleArea.vue";
+import TitleArea from '~/components/TitleArea.vue';
 import {
   toHome,
   fromHome,
   beforeFromHome,
   mobileFromHome,
-  mobileToHome
-} from "~/animations/about";
-import MailIcon from "~/icons/mail.vue";
-import YoutubeIcon from "~/icons/youtube.vue";
-import SoundcloudIcon from "~/icons/soundcloud.vue";
-import LinkedinIcon from "~/icons/linkedin.vue";
+  mobileToHome,
+} from '~/animations/about';
+import MailIcon from '~/icons/mail.vue';
+import YoutubeIcon from '~/icons/youtube.vue';
+import SoundcloudIcon from '~/icons/soundcloud.vue';
+import LinkedinIcon from '~/icons/linkedin.vue';
 
 export default {
-  async asyncData({ app, env }) {
-    const { data: titleData } = await app.$axios.post(
-      env.homeUrl,
-      JSON.stringify({
-        populate: 1
-      }),
-      {
-        headers: { "Content-Type": "application/json" }
-      }
+  async asyncData({app, env}) {
+    const {data: titleData} = await app.$axios.post(
+        env.homeUrl,
+        JSON.stringify({
+          populate: 1,
+        }),
+        {
+          headers: {'Content-Type': 'application/json'},
+        }
     );
-    const { data } = await app.$axios.post(
-      env.aboutUrl,
-      JSON.stringify({
-        populate: 1
-      }),
-      {
-        headers: { "Content-Type": "application/json" }
-      }
+    const {data} = await app.$axios.post(
+        env.aboutUrl,
+        JSON.stringify({
+          populate: 1,
+        }),
+        {
+          headers: {'Content-Type': 'application/json'},
+        }
     );
     return {
       topTitle: titleData.toptitle,
@@ -67,7 +83,7 @@ export default {
       subtitle: titleData.subtitle,
       title: data.Title,
       description: data.Description,
-      image: env.baseUrl + data.Image.path
+      image: env.baseUrl + data.Image.path,
     };
   },
   components: {
@@ -75,18 +91,18 @@ export default {
     MailIcon,
     YoutubeIcon,
     SoundcloudIcon,
-    LinkedinIcon
-  },
-  mounted() {
-    TweenLite.set(".main", { visibility: "visible" }, 1);
+    LinkedinIcon,
   },
   computed: {
     socials() {
       return this.$store.state.social;
-    }
+    },
+  },
+  mounted() {
+    TweenLite.set('.main', {visibility: 'visible'}, 1);
   },
   transition: {
-    mode: "out-in",
+    mode: 'out-in',
     css: false,
     appear: true,
     enter(el, done) {
@@ -105,8 +121,8 @@ export default {
       } else {
         toHome(this.$store, done);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

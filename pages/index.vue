@@ -1,55 +1,61 @@
 <template>
   <main class="main">
     <section class="content">
-      <TitleArea id="title" :topTitle="topTitle" :bottomTitle="bottomTitle" :subtitle="subtitle" />
+      <TitleArea
+        id="title"
+        :top-title="topTitle"
+        :bottom-title="bottomTitle"
+        :subtitle="subtitle" />
     </section>
-    <section class="image" :style="{ backgroundImage: `url('${image}')`}"></section>
+    <section
+      :style="{ backgroundImage: `url('${image}')`}"
+      class="image"/>
   </main>
 </template>
 
 <script>
-import TitleArea from "~/components/TitleArea.vue";
+import TitleArea from '~/components/TitleArea.vue';
 import {
   beforeToAbout,
   fromAbout,
   enterHome,
   leaveHome,
   fadeOutTitle,
-  fadeInTitle
-} from "~/animations/home";
+  fadeInTitle,
+} from '~/animations/home';
 
 export default {
-  async asyncData({ app, env }) {
-    const { data } = await app.$axios.post(
-      env.homeUrl,
-      JSON.stringify({
-        populate: 1
-      }),
-      {
-        headers: { "Content-Type": "application/json" }
-      }
+  async asyncData({app, env}) {
+    const {data} = await app.$axios.post(
+        env.homeUrl,
+        JSON.stringify({
+          populate: 1,
+        }),
+        {
+          headers: {'Content-Type': 'application/json'},
+        }
     );
     return {
       topTitle: data.toptitle,
       bottomTitle: data.bottomtitle,
       subtitle: data.subtitle,
-      image: env.baseUrl + data.image.path
+      image: env.baseUrl + data.image.path,
     };
   },
   components: {
-    TitleArea
+    TitleArea,
   },
   mounted() {
-    TweenLite.set(".main", { visibility: "visible" }, 1);
+    TweenLite.set('.main', {visibility: 'visible'}, 1);
   },
   transition: {
-    mode: "out-in",
+    mode: 'out-in',
     css: false,
     appear: true,
     enter(el, done) {
       enterHome(this.$store, done);
       if (
-        this.$store.state.previousPage !== "about" ||
+        this.$store.state.previousPage !== 'about' ||
         this.$store.state.isMobile
       ) {
         fadeInTitle(this.$store, done);
@@ -58,17 +64,17 @@ export default {
       }
     },
     beforeLeave(el, done) {
-      if (this.$store.state.page === "about") {
+      if (this.$store.state.page === 'about') {
         beforeToAbout(this.$store);
       }
     },
     leave(el, done) {
       leaveHome(this.$store, done);
-      if (this.$store.state.page !== "about" || this.$store.state.isMobile) {
+      if (this.$store.state.page !== 'about' || this.$store.state.isMobile) {
         fadeOutTitle(this.$store, done);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

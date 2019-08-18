@@ -1,68 +1,80 @@
 <template>
   <nav class="lower-nav">
     <ul class="nav-list">
-      <li key="demo" class="nav-list__item nav-list__item--demo">
-        <nuxt-link class="nav-list__link nav-list__link--demo" to="/demo">Demo Reel</nuxt-link>
+      <li
+        key="demo"
+        class="nav-list__item nav-list__item--demo">
+        <nuxt-link
+          class="nav-list__link nav-list__link--demo"
+          to="/demo">Demo Reel</nuxt-link>
       </li>
-      <li key="projects" class="nav-list__item nav-list__item--projects">
-        <nuxt-link class="nav-list__link nav-list__link--projects" to="/projects">Projects</nuxt-link>
+      <li
+        key="projects"
+        class="nav-list__item nav-list__item--projects">
+        <nuxt-link
+          class="nav-list__link nav-list__link--projects"
+          to="/projects">Projects</nuxt-link>
       </li>
-      <li key="about" class="nav-list__item nav-list__item--about">
-        <nuxt-link class="nav-list__link nav-list__link--about" to="/about">About</nuxt-link>
+      <li
+        key="about"
+        class="nav-list__item nav-list__item--about">
+        <nuxt-link
+          class="nav-list__link nav-list__link--about"
+          to="/about">About</nuxt-link>
       </li>
     </ul>
   </nav>
 </template>
 
 <script>
-import { TimelineLite, Expo } from "gsap";
-import { mapState } from "vuex";
+import {TimelineLite, Expo} from 'gsap';
+import {mapState} from 'vuex';
 
 export default {
-  computed: mapState(["page", "previousPage", "animationSpeed"]),
-  mounted() {
-    if (this.page === "index") {
-      this.navShowAnimation();
-    }
-  },
+  computed: mapState(['page', 'previousPage', 'animationSpeed']),
   watch: {
     page(newVal) {
-      if (newVal === "index") {
+      if (newVal === 'index') {
         this.navShowAnimation();
       } else {
         this.navHideAnimation();
       }
+    },
+  },
+  mounted() {
+    if (this.page === 'index') {
+      this.navShowAnimation();
     }
   },
   methods: {
     navHideAnimation() {
-      let tl = new TimelineLite();
+      const tl = new TimelineLite();
       tl.staggerTo(
-        ".nav-list__item",
-        this.$store.state.animationSpeed,
-        {
-          yPercent: 0,
-          pointerEvents: "none",
-          ease: Expo.easeInOut
-        },
-        this.$store.state.animationSpeed / 4
+          '.nav-list__item',
+          this.$store.state.animationSpeed,
+          {
+            yPercent: 0,
+            pointerEvents: 'none',
+            ease: Expo.easeInOut,
+          },
+          this.$store.state.animationSpeed / 4
       );
     },
     navShowAnimation() {
-      let tl = new TimelineLite();
+      const tl = new TimelineLite();
       tl.staggerTo(
-        ".nav-list__item",
-        this.$store.state.animationSpeed / 1.3333,
-        {
-          yPercent: -100,
-          pointerEvents: "auto",
-          ease: Expo.easeInOut,
-          delay: this.$store.state.animationSpeed
-        },
-        this.$store.state.animationSpeed / 4
+          '.nav-list__item',
+          this.$store.state.animationSpeed / 1.3333,
+          {
+            yPercent: -100,
+            pointerEvents: 'auto',
+            ease: Expo.easeInOut,
+            delay: this.$store.state.animationSpeed,
+          },
+          this.$store.state.animationSpeed / 4
       );
-    }
-  }
+    },
+  },
 };
 </script>
 

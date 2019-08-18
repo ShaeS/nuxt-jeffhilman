@@ -1,4 +1,4 @@
-require("dotenv").config();
+require('dotenv').config();
 
 module.exports = {
   /*
@@ -6,26 +6,26 @@ module.exports = {
    */
   head: {
     htmlAttrs: {
-      lang: "en"
+      lang: 'en',
     },
-    title: "Jeff Hilman | Audio Engineer",
+    title: 'Jeff Hilman | Sound Designer',
     meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
       {
-        hid: "description",
-        name: "description",
-        content: "Jeff Hilman Audio Engineer"
-      }
+        hid: 'description',
+        name: 'description',
+        content: 'Jeff Hilman Sound Designer',
+      },
     ],
     link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.png" },
+      {rel: 'icon', type: 'image/x-icon', href: '/favicon.png'},
       {
-        rel: "stylesheet",
+        rel: 'stylesheet',
         href:
-          "https://fonts.googleapis.com/css?family=Lato:400,700,900|Prata&display=swap"
-      }
-    ]
+          'https://fonts.googleapis.com/css?family=Lato:400,700,900|Prata&display=swap',
+      },
+    ],
   },
   env: {
     baseUrl: process.env.BASE_URL,
@@ -35,16 +35,16 @@ module.exports = {
     homeUrl: process.env.HOME_URL,
     aboutUrl: process.env.ABOUT_URL,
     projectPageUrl: process.env.PROJECT_PAGE_URL,
-    demoUrl: process.env.DEMO_URL
+    demoUrl: process.env.DEMO_URL,
   },
-  modules: ["@nuxtjs/axios", "@nuxtjs/sitemap"],
+  modules: ['@nuxtjs/axios', '@nuxtjs/sitemap'],
   router: {
-    middleware: "pages"
+    middleware: 'pages',
   },
   plugins: [
-    { src: "~/plugins/resize", ssr: false },
-    { src: "~/plugins/reduced-motion", ssr: false },
-    { src: "~/plugins/viewport", ssr: false }
+    {src: '~/plugins/resize', ssr: false},
+    {src: '~/plugins/reduced-motion', ssr: false},
+    {src: '~/plugins/viewport', ssr: false},
   ],
   /*
    ** Customize the progress bar color
@@ -57,15 +57,15 @@ module.exports = {
     /*
      ** Run ESLint on save
      */
-    extend(config, { isDev, isClient }) {
+    extend(config, {isDev, isClient}) {
       if (isDev && isClient) {
         config.module.rules.push({
-          enforce: "pre",
+          enforce: 'pre',
           test: /\.(js|vue)$/,
-          loader: "eslint-loader",
-          exclude: /(node_modules)/
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/,
         });
       }
-    }
-  }
+    },
+  },
 };

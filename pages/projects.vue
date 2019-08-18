@@ -1,24 +1,32 @@
 <template>
   <main class="main">
-    <section @click="closeProject" class="projects-sidebar">
+    <section
+      class="projects-sidebar"
+      @click="closeProject">
       <h2 class="projects-sidebar__title">{{ title }}</h2>
-      <div class="projects-sidebar__content" v-html="description"></div>
+      <div
+        class="projects-sidebar__content"
+        v-html="description"/>
       <div class="background-text background-text--sub">Projects</div>
-      <div class="projects-sidebar__overlay"></div>
+      <div class="projects-sidebar__overlay"/>
     </section>
-    <section ref="scroller" class="content">
+    <section
+      ref="scroller"
+      class="content">
       <div class="scroll-wrap">
         <ProjectCard
           v-for="(project, index) in projects"
           :key="project._id"
-          @click.native="viewProject(index)"
           :project="project"
+          @click.native="viewProject(index)"
         />
       </div>
       <div class="other-work">
         <h3 class="other-work__title">More Projects</h3>
         <ul class="other-work__list">
-          <li v-for="project in miniProjects" :key="project._id">
+          <li
+            v-for="project in miniProjects"
+            :key="project._id">
             <MiniProjectCard :project="project" />
           </li>
         </ul>
@@ -28,7 +36,7 @@
 
     <ProjectDetails
       :projects="projects"
-      :projectIndex="projectIndex"
+      :project-index="projectIndex"
       @close="closeProject"
       @prev="viewProject(( projectIndex + projects.length - 1 ) % projects.length)"
       @next="viewProject(( projectIndex + 1 ) % projects.length)"
@@ -37,108 +45,103 @@
 </template>
 
 <script>
-import { TimelineLite, TweenLite, Expo } from "gsap";
-import { toHome, fromHome } from "~/animations/projects";
-import ProjectCard from "~/components/ProjectCard.vue";
-import MiniProjectCard from "~/components/MiniProjectCard.vue";
-import ProjectDetails from "~/components/ProjectDetails.vue";
+import {TimelineLite, TweenLite, Expo} from 'gsap';
+import {toHome, fromHome} from '~/animations/projects';
+import ProjectCard from '~/components/ProjectCard.vue';
+import MiniProjectCard from '~/components/MiniProjectCard.vue';
+import ProjectDetails from '~/components/ProjectDetails.vue';
 
 export default {
-  async asyncData({ app, env }) {
-    const { data: pageData } = await app.$axios.post(
-      env.projectPageUrl,
-      JSON.stringify({
-        populate: 1
-      }),
-      {
-        headers: { "Content-Type": "application/json" }
-      }
+  async asyncData({app, env}) {
+    const {data: pageData} = await app.$axios.post(
+        env.projectPageUrl,
+        JSON.stringify({
+          populate: 1,
+        }),
+        {
+          headers: {'Content-Type': 'application/json'},
+        }
     );
-    const { data } = await app.$axios.post(
-      env.projectsUrl,
-      JSON.stringify({
-        populate: 1
-      }),
-      {
-        headers: { "Content-Type": "application/json" }
-      }
+    const {data} = await app.$axios.post(
+        env.projectsUrl,
+        JSON.stringify({
+          populate: 1,
+        }),
+        {
+          headers: {'Content-Type': 'application/json'},
+        }
     );
-    const { data: miniData } = await app.$axios.post(
-      env.miniprojectsUrl,
-      JSON.stringify({
-        populate: 1
-      }),
-      {
-        headers: { "Content-Type": "application/json" }
-      }
+    const {data: miniData} = await app.$axios.post(
+        env.miniprojectsUrl,
+        JSON.stringify({
+          populate: 1,
+        }),
+        {
+          headers: {'Content-Type': 'application/json'},
+        }
     );
     return {
       title: pageData.Title,
       description: pageData.Description,
       projects: data.entries,
-      miniProjects: miniData.entries
+      miniProjects: miniData.entries,
     };
   },
   components: {
     ProjectCard,
     MiniProjectCard,
-    ProjectDetails
+    ProjectDetails,
   },
   data() {
     return {
       projectIndex: null,
-      tl: null
+      tl: null,
     };
   },
   mounted() {
-    TweenLite.set(".main", { visibility: "visible" }, 1);
-    this.tl = new TimelineLite({ paused: true });
+    TweenLite.set('.main', {visibility: 'visible'}, 1);
+    this.tl = new TimelineLite({paused: true});
     this.tl
-      .to(
-        [".projects-sidebar__title", ".projects-sidebar__content"],
-        this.$store.state.animationSpeed * 1.5,
-        {
-          opacity: 0,
-          ease: Expo.easeInOut
-        },
-        0
-      )
-      .to(
-        ".projects-sidebar__overlay",
-        this.$store.state.animationSpeed * 1.5,
-        {
-          opacity: 0.7,
-          ease: Expo.easeInOut
-        },
-        0
-      )
-      .to(
-        ".project-card",
-        this.$store.state.animationSpeed * 1.5,
-        {
-          xPercent: 100,
-          opacity: 0,
-          ease: Expo.easeInOut
-        },
-        0
-      )
-      .to(
-        ".other-work",
-        this.$store.state.animationSpeed * 1.5,
-        {
-          xPercent: 100,
-          ease: Expo.easeInOut
-        },
-        0
-      )
-      .to(
-        ["html", "body"],
-        0,
-        {
-          overflow: "hidden"
-        },
-        0
-      );
+        .to(
+            ['.projects-sidebar__title', '.projects-sidebar__content'],
+            this.$store.state.animationSpeed * 1.5,
+            {
+              opacity: 0,
+              ease: Expo.easeInOut,
+            },
+            0
+        )
+        .to(
+            '.projects-sidebar__overlay',
+            this.$store.state.animationSpeed * 1.5,
+            {
+              opacity: 0.7,
+              ease: Expo.easeInOut,
+            },
+            0
+        )
+        .to(
+            '.project-card',
+            this.$store.state.animationSpeed * 1.5,
+            {
+              xPercent: 100,
+              opacity: 0,
+              ease: Expo.easeInOut,
+            },
+            0
+        )
+        .to(
+            '.other-work',
+            this.$store.state.animationSpeed * 1.5,
+            {
+              xPercent: 100,
+              ease: Expo.easeInOut,
+            },
+            0
+        )
+        .to(['html', 'body'], 0, {
+          overflow: 'hidden',
+        }, 0);
   },
   methods: {
     viewProject(index) {
@@ -148,10 +151,10 @@ export default {
     closeProject() {
       this.projectIndex = null;
       this.tl.reverse();
-    }
+    },
   },
   transition: {
-    mode: "out-in",
+    mode: 'out-in',
     css: false,
     appear: true,
     enter(el, done) {
@@ -159,8 +162,8 @@ export default {
     },
     leave(el, done) {
       toHome(this.$store, done);
-    }
-  }
+    },
+  },
 };
 </script>
 

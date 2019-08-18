@@ -2,7 +2,7 @@
   <div class="title">
     <h1 class="title__main">
       {{ topTitle }}
-      <br />
+      <br >
       {{ bottomTitle }}
     </h1>
     <h2 class="title__sub">{{ subtitle }}</h2>
@@ -14,8 +14,8 @@ export default {
   props: {
     topTitle: String,
     bottomTitle: String,
-    subtitle: String
-  }
+    subtitle: String,
+  },
 };
 </script>
 

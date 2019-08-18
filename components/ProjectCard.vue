@@ -1,20 +1,22 @@
 <template>
   <article class="project-card">
     <h3 class="project-card__title">{{ project.Title }}</h3>
-    <img class="project-card__image" :src="image" />
+    <img
+      :src="image"
+      class="project-card__image" >
   </article>
 </template>
 
 <script>
 export default {
   props: {
-    project: Object
+    project: Object,
   },
   computed: {
     image() {
       return process.env.baseUrl + this.project.Image.path;
-    }
-  }
+    },
+  },
 };
 </script>
 

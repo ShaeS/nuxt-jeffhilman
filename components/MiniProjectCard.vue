@@ -1,6 +1,11 @@
 <template>
-  <a class="mini-project" :href="project.linkurl" target="_blank">
-    <img class="mini-project__image" :src="image" />
+  <a
+    :href="project.linkurl"
+    class="mini-project"
+    target="_blank">
+    <img
+      :src="image"
+      class="mini-project__image" >
     <h3 class="mini-project__title">{{ project.Title }}</h3>
   </a>
 </template>
@@ -8,13 +13,13 @@
 <script>
 export default {
   props: {
-    project: Object
+    project: Object,
   },
   computed: {
     image() {
       return process.env.baseUrl + this.project.Image.path;
-    }
-  }
+    },
+  },
 };
 </script>
 

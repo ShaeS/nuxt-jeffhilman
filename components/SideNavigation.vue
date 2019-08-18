@@ -2,83 +2,91 @@
   <div class="side-nav">
     <div class="social">
       <ul class="social__list">
-        <li v-for="social in socials" :key="social._id">
-          <a class="social__link" :href="social.URL" target="_blank" rel="noopener noreferrer">
-            <component :is="social.icon" class="social__icon" />
+        <li
+          v-for="social in socials"
+          :key="social._id">
+          <a
+            :href="social.URL"
+            class="social__link"
+            target="_blank"
+            rel="noopener noreferrer">
+            <component
+              :is="social.icon"
+              class="social__icon" />
           </a>
         </li>
       </ul>
     </div>
-    <nuxt-link class="menu" to="/">
+    <nuxt-link
+      class="menu"
+      to="/">
       <div class="menu__link">
-        <div class="menu__icon"></div>
+        <div class="menu__icon"/>
       </div>
     </nuxt-link>
   </div>
 </template>
 
 <script>
-import { TimelineLite, Expo } from "gsap";
-import { mapState } from "vuex";
-import { navFromAbout } from "~/animations/home";
-import { navFromHome } from "~/animations/about";
-import MailIcon from "~/icons/mail.vue";
-import YoutubeIcon from "~/icons/youtube.vue";
-import SoundcloudIcon from "~/icons/soundcloud.vue";
-import LinkedinIcon from "~/icons/linkedin.vue";
+import {TimelineLite, Expo} from 'gsap';
+import {mapState} from 'vuex';
+import MailIcon from '~/icons/mail.vue';
+import YoutubeIcon from '~/icons/youtube.vue';
+import SoundcloudIcon from '~/icons/soundcloud.vue';
+import LinkedinIcon from '~/icons/linkedin.vue';
 
 export default {
   components: {
     MailIcon,
     YoutubeIcon,
     SoundcloudIcon,
-    LinkedinIcon
+    LinkedinIcon,
   },
   data() {
     return {
-      tl: null
+      tl: null,
     };
   },
   computed: {
-    ...mapState(["page", "previousPage", "animationSpeed"]),
+    ...mapState(['page', 'previousPage', 'animationSpeed']),
     socials() {
       return this.$store.state.social;
-    }
-  },
-  mounted() {
-    this.tl = new TimelineLite({ paused: true });
-    this.navAnimation();
-    if (this.page !== "index") {
-      this.tl.play();
-    }
+    },
   },
   watch: {
     page(newVal) {
-      if (newVal === "index") {
+      if (newVal === 'index') {
         this.tl.reverse();
       } else {
         this.tl.play();
       }
+    },
+  },
+  mounted() {
+    this.tl = new TimelineLite({paused: true});
+    this.navAnimation();
+    if (this.page !== 'index') {
+      this.tl.play();
     }
   },
   methods: {
     navAnimation() {
       this.tl
-        .to(this.$el, this.$store.state.animationSpeed, {
-          x: 0,
-          ease: Expo.easeInOut
-        })
-        .to(
-          ".menu",
-          this.$store.state.animationSpeed,
-          {
+          .to(this.$el, this.$store.state.animationSpeed, {
             x: 0,
-            ease: Expo.easeInOut
-          },
-          `-=${this.$store.state.animationSpeed / 2}`
-        );
-    }
-  }
+            ease: Expo.easeInOut,
+          })
+          .to(
+              '.menu',
+              this.$store.state.animationSpeed,
+              {
+                x: 0,
+                ease: Expo.easeInOut,
+              },
+              `-=${this.$store.state.animationSpeed / 2}`
+          );
+    },
+  },
 };
 </script>
 

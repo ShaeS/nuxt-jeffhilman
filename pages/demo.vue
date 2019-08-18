@@ -1,35 +1,35 @@
 <template>
   <main class="main">
     <iframe
-      class="video-player"
       :src="`https://player.vimeo.com/video/${id}?autoplay=1`"
+      class="video-player"
       allow="autoplay; fullscreen"
       allowfullscreen
-    ></iframe>
+    />
   </main>
 </template>
 
 <script>
-import { fromHome, toHome } from "~/animations/demo";
+import {fromHome, toHome} from '~/animations/demo';
 
 export default {
-  async asyncData({ app, env }) {
-    const { data } = await app.$axios.post(
-      env.demoUrl,
-      JSON.stringify({
-        populate: 1
-      }),
-      {
-        headers: { "Content-Type": "application/json" }
-      }
+  async asyncData({app, env}) {
+    const {data} = await app.$axios.post(
+        env.demoUrl,
+        JSON.stringify({
+          populate: 1,
+        }),
+        {
+          headers: {'Content-Type': 'application/json'},
+        }
     );
-    return { id: data.Vimeo };
+    return {id: data.Vimeo};
   },
   mounted() {
-    TweenLite.set(".main", { visibility: "visible" }, 1);
+    TweenLite.set('.main', {visibility: 'visible'}, 1);
   },
   transition: {
-    mode: "out-in",
+    mode: 'out-in',
     css: false,
     appear: true,
     enter(el, done) {
@@ -37,8 +37,8 @@ export default {
     },
     leave(el, done) {
       toHome(this.$store, done);
-    }
-  }
+    },
+  },
 };
 </script>
 

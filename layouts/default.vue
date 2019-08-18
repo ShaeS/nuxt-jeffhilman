@@ -8,14 +8,14 @@
 </template>
 
 <script>
-import AppNavigation from "~/components/AppNavigation.vue";
-import SideNavigation from "~/components/SideNavigation.vue";
+import AppNavigation from '~/components/AppNavigation.vue';
+import SideNavigation from '~/components/SideNavigation.vue';
 
 export default {
   components: {
     AppNavigation,
-    SideNavigation
-  }
+    SideNavigation,
+  },
 };
 </script>
 

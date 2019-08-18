@@ -1,15 +1,15 @@
-import Vuex from "vuex";
-import axios from "axios";
+import Vuex from 'vuex';
+import axios from 'axios';
 
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      page: "index",
+      page: 'index',
       previousPage: null,
       animationSpeed: 1, // Change to 0 on reduced motion
       previousTitlePos: 0,
       isMobile: false,
-      social: null
+      social: null,
     },
     mutations: {
       updatePage(state, pageName) {
@@ -23,26 +23,26 @@ const createStore = () => {
         state.animationSpeed = val;
       },
       updateIsMobile(state) {
-        state.isMobile = window.matchMedia("(max-width: 990px)").matches;
+        state.isMobile = window.matchMedia('(max-width: 990px)').matches;
       },
       updateSocial(state, obj) {
         state.social = obj;
-      }
+      },
     },
     actions: {
-      async nuxtServerInit({ commit }, context) {
-        const { data } = await axios.post(
-          context.env.socialUrl,
-          JSON.stringify({
-            populate: 1
-          }),
-          {
-            headers: { "Content-Type": "application/json" }
-          }
+      async nuxtServerInit({commit}, context) {
+        const {data} = await axios.post(
+            context.env.socialUrl,
+            JSON.stringify({
+              populate: 1,
+            }),
+            {
+              headers: {'Content-Type': 'application/json'},
+            }
         );
-        commit("updateSocial", data.entries);
-      }
-    }
+        commit('updateSocial', data.entries);
+      },
+    },
   });
 };
 
