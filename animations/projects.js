@@ -26,7 +26,9 @@ export function fromHome(store, done) {
           },
           store.state.animationSpeed / 6,
           `-=${store.state.animationSpeed / 1.333}`
-      )
+      ).to(['html', 'body'], 0, {
+        overflow: 'visible',
+      })
       .from('.other-work', store.state.animationSpeed, {
         xPercent: 100,
         ease: Expo.easeOut,
@@ -35,15 +37,36 @@ export function fromHome(store, done) {
 
 export function toHome(store, done) {
   const tl = new TimelineLite({onComplete: done});
-  tl.to(
-      '.project-card',
-      store.state.animationSpeed,
-      {
-        opacity: 0,
-        ease: Expo.easeInOut,
-      },
-      0
-  )
+  tl.to(['html', 'body'], 0, {
+    overflow: 'hidden',
+  })
+      .to(
+          '.project-card',
+          store.state.animationSpeed,
+          {
+            opacity: 0,
+            ease: Expo.easeInOut,
+          },
+          0
+      )
+      .to(
+          '.projects-sidebar',
+          store.state.animationSpeed * 1.5,
+          {
+            xPercent: -150,
+            ease: Expo.easeInOut,
+          },
+          0
+      )
+      .to(
+          '.other-work',
+          store.state.animationSpeed,
+          {
+            opacity: 0,
+            ease: Expo.easeInOut,
+          },
+          0
+      )
       .to(
           '.projects-sidebar',
           store.state.animationSpeed * 1.5,

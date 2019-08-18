@@ -3,7 +3,9 @@
     <side-navigation />
     <nuxt />
     <app-navigation />
-    <div class="background-text">JH</div>
+    <div
+      v-cloak
+      class="background-text">JH</div>
   </div>
 </template>
 
@@ -15,6 +17,9 @@ export default {
   components: {
     AppNavigation,
     SideNavigation,
+  },
+  mounted() {
+    TweenLite.to('.background-text', this.$store.state.animationSpeed, {opacity: 0.3});
   },
 };
 </script>
@@ -62,8 +67,10 @@ export default {
     --side-nav-size: 72px;
   }
 }
+
 html,
 body {
+  overflow: hidden;
   font-family: var(--font-sans);
   font-size: 16px;
   word-spacing: 1px;
@@ -90,8 +97,8 @@ img {
 
 .background-text {
   pointer-events: none;
+  opacity: 0;
   color: var(--color-grey-900);
-  opacity: 0.3;
   position: fixed;
   z-index: 0;
   top: -5vw;

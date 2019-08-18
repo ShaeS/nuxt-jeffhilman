@@ -29,7 +29,7 @@ export default {
   margin: var(--spacing-xxxxl) 0;
   text-align: right;
   width: 60%;
-  max-width: 400px;
+  max-width: 600px;
   position: relative;
   align-self: flex-start;
 

@@ -137,7 +137,7 @@ export default {
   padding-right: var(--spacing-md);
   position: relative;
   z-index: 1;
-  height: calc(100vh - (var(--lower-nav-size) / 2));
+  height: calc((var(--vh, 1vh) * 100) - (var(--lower-nav-size) / 2 ));
   display: flex;
   flex-direction: column;
   align-items: center;
