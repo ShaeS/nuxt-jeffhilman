@@ -5,15 +5,17 @@
         id="title"
         :top-title="topTitle"
         :bottom-title="bottomTitle"
-        :subtitle="subtitle" />
+        :subtitle="subtitle"
+      />
     </section>
     <section class="about">
       <div class="background-text background-text--sub">About</div>
       <div class="about__wrap">
+        <div class="about__fade"/>
         <h3 class="about__title">{{ title }}</h3>
         <div
           class="about__content"
-          v-html="description"/>
+          v-html="description" />
         <div class="about-details">
           <div class="about-details__contact">
             <h3 class="about-details__title">Contact</h3>
@@ -21,7 +23,8 @@
               <li
                 v-for="social in socials"
                 :key="social._id"
-                class="about-details__item">
+                class="about-details__item"
+              >
                 <a
                   :href="social.URL"
                   target="_blank"
@@ -35,8 +38,9 @@
             </ul>
           </div>
           <div
-            :style="{ backgroundImage: `url('${image}')`}"
-            class="about-details__image"/>
+            :style="{ backgroundImage: `url('${image}')` }"
+            class="about-details__image"
+          />
         </div>
       </div>
     </section>
@@ -137,7 +141,7 @@ export default {
   padding-right: var(--spacing-md);
   position: relative;
   z-index: 1;
-  height: calc((var(--vh, 1vh) * 100) - (var(--lower-nav-size) / 2 ));
+  height: calc((var(--vh, 1vh) * 100) - (var(--lower-nav-size) / 2));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -183,7 +187,24 @@ export default {
     left: -2vw;
   }
 
+  &__fade {
+    pointer-events: none;
+    z-index: 10;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 12vh;
+    bottom: 40vh;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 75%, rgba(255, 255, 255, 0.75));
+
+    @media screen and (max-width: 990px) {
+      display: none;
+    }
+  }
+
   &__wrap {
+    overflow: auto;
+    height: 60vh;
     padding: var(--spacing-xxxl);
 
     @media screen and (max-width: 1200px) {
@@ -191,6 +212,8 @@ export default {
     }
 
     @media screen and (max-width: 990px) {
+      height: auto;
+      overflow: visible;
       padding: 0;
     }
   }
@@ -295,4 +318,3 @@ export default {
   }
 }
 </style>
-
