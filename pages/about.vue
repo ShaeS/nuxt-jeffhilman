@@ -169,8 +169,8 @@ export default {
 
   @media screen and (max-width: 990px) {
     width: 100vw;
-    overflow: auto;
-    height: 100vh;
+    overflow: visible;
+    height: auto;
     padding: var(--spacing-xxxxl) var(--spacing-xl) var(--spacing-xxl);
   }
 
